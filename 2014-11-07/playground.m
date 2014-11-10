@@ -56,7 +56,7 @@ meshc(XS, YS, ZS);
 %%
 
 D = 2;
-N = 10000;
+N = 5000;
 
 range = 5;
 xmin = -range; xmax = range;
