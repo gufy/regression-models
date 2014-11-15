@@ -1,4 +1,4 @@
-function [ y ] = f_16( x, x_opt, f_opt, R, Q )
+function [ y ] = f16( x, x_opt, f_opt, R, Q )
 % Weierstrass Function
 % One parameter version:
 % a = 1/2;

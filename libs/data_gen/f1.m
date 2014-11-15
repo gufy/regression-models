@@ -1,4 +1,4 @@
-function [ y ] = f_1( x, x_opt, f_opt )
+function [ y ] = f1( x, x_opt, f_opt )
 % f_1 
 % f_1(x) = \norm(z) ^ 2 + \f_opt
 % z = x - x^{opt}

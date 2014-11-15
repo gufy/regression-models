@@ -1,10 +1,10 @@
 function [ ] = plot3d( func, D, N, range )
 
-if nargin < 2
+if nargin < 2 || D == 0
     D = 2;
 end
 
-if nargin < 3
+if nargin < 3 || N == 0
     N = 5000;
 end
 
@@ -43,6 +43,7 @@ zmax = max(Y);
 zmax = zmax + (zmax - zmin) * 0.3;
 
 axis([xmin xmax ymin ymax zmin zmax]);
+title(func2str(func));
 
 end
 
