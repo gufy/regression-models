@@ -1,4 +1,4 @@
-function [ y ] = f16( x, x_opt, f_opt, R, Q )
+function [ f ] = f16( D, x_opt, f_opt, R, Q )
 % Weierstrass Function
 % One parameter version:
 % a = 1/2;
@@ -14,24 +14,31 @@ function [ y ] = f16( x, x_opt, f_opt, R, Q )
 % plot(x,y);
 
 
-D = length(x);
-z = R * lambda(1/100, D) * Q * T_osz(R*(x - x_opt));
+    f_0 = 0;
 
-f_0 = 0;
-
-for k = 0:11
-    f_0 = f_0 + (1/2)^k * cos(pi*3^k);
-end
-
-y = 0;
-
-for i = 1:D
-    for k = 0:11
-        y = y + (1/2)^k * cos(2*pi*3^k*(z(i) + 1/2));
+    for j = 0:11
+        f_0 = f_0 + (1/2)^j * cos(pi*3^j);
     end
-end
 
-y = 10*(y/D - f_0)^3 + 10/D*f_pen(x) + f_opt;
+
+    function [res] = f16_compute(x)
+        
+        z = R * lambda(1/100, D) * Q * T_osz(R*(x - x_opt));
+
+        y = 0;
+
+        for i = 1:D
+            for k = 0:11
+                y = y + (1/2)^k * cos(2*pi*3^k*(z(i) + 1/2));
+            end
+        end
+
+        y = 10*(y/D - f_0)^3 + 10/D*f_pen(x) + f_opt;
+        
+        res = y;
+    end
+
+    f = @(x) f16_compute(x);
 
 end
 
