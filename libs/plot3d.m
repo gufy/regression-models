@@ -1,5 +1,6 @@
 function [ ] = plot3d( func, range )
 
+format long
 D = 2;
 
 if nargin < 2
@@ -39,11 +40,15 @@ xscale = ran + x_opt_val(1);
 yscale = ran + x_opt_val(2);
 [XS, YS] = meshgrid(xscale,yscale);
 ZS = reshape(Y,[length(ran) length(ran)]);
-meshc(XS, YS, ZS);
+mesh(XS, YS, ZS);
 
 zmin = min(Y);
 zmax = max(Y);
 zmax = zmax + (zmax - zmin) * 0.3;
+
+if zmax - zmin > 1000
+    zmax = zmin + 1000;
+end
 
 axis([xmin xmax ymin ymax zmin zmax]);
 title(func2str(func));

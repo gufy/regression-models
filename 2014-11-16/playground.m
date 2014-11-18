@@ -10,7 +10,7 @@ x_opt_val = zeros(D,1);%x_opt(D);
 f_opt_val = f_opt();
 [Q, R] = qr(randn(D));
 
-f = f19(D, x_opt_val, f_opt_val, R, Q);
+f = f20(D, x_opt_val, f_opt_val, R, Q);
 
 
 ran = xmin:0.1:xmax;

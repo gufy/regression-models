@@ -7,7 +7,7 @@ if nargin < 3
 end
 
 if nargin < 2
-    to = 23;
+    to = 24;
 end
 
 if nargin < 1
@@ -21,11 +21,14 @@ figure;
 for I = 1:num
     no = I + from - 1;
     try 
-        subplot(rows*2, cols, I);
+        fprintf('plot3d f%d at %d and %d\n', no, I, rows*cols+I);
+        sh=subplot(rows*2, cols, I);
         plot3d(str2func(strcat('f', int2str(no))));
+        set(sh,'zdir','reverse');
         
-        subplot(rows*2, cols, rows*cols+I);
+        sh=subplot(rows*2, cols, rows*cols+I);
         plot3d(str2func(strcat('f', int2str(no))), 2);
+        set(sh,'zdir','reverse');
     catch
         fprintf('Cannot plot3d f%d\n', no);
     end
