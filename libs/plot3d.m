@@ -12,7 +12,7 @@ ymin = -range; ymax = range;
 
 x_opt_val = zeros(D,1);%x_opt(D);
 f_opt_val = f_opt();
-[Q, R] = qr(randn(D));
+[Q, R] = qr(rand(D));
 
 f = func(D, x_opt_val, f_opt_val, R, Q);
 
@@ -46,9 +46,9 @@ zmin = min(Y);
 zmax = max(Y);
 zmax = zmax + (zmax - zmin) * 0.3;
 
-if zmax - zmin > 1000
-    zmax = zmin + 1000;
-end
+%if zmax - zmin > 1000
+%    zmax = zmin + 1000;
+%end
 
 axis([xmin xmax ymin ymax zmin zmax]);
 title(func2str(func));
