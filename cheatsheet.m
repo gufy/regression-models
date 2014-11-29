@@ -28,6 +28,7 @@ net = newrb(X',T',eg,sc);
 
 %%
 
+N = 50;
 [XS, YS] = meshgrid(linspace(-4,4,N),linspace(-4,4,N));
 ZS = zeros(N,N);
 
