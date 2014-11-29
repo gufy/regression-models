@@ -1,7 +1,7 @@
 function [ f ] = f15( D, x_opt, f_opt, R, Q )
 
     function [res] = f15_compute(x)
-        z = R * lambda(10, D) * Q * T_asy(T_osz(R*(x - x_opt)),0.2);
+        z = R * lambda(1.2, D) * Q * T_asy(T_osz(R*(x - x_opt)),0.2);
         %z = R * lambda(10, D) * Q * R*(x - x_opt);
         %z = R * lambda(10, D) * Q * R * (x - x_opt);
         z = R * Q * T_asy(T_osz(R * (x - x_opt)),0.2);

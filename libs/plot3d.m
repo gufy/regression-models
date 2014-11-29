@@ -1,4 +1,4 @@
-function [ ] = plot3d( func, range )
+function [ ] = plot3d( func, range, rand )
 
 format long
 D = 2;
@@ -7,12 +7,23 @@ if nargin < 2
     range = 5;
 end
 
+if nargin < 3
+    rand = 0;
+end
+
 xmin = -range; xmax = range;
 ymin = -range; ymax = range;
 
-x_opt_val = zeros(D,1);%x_opt(D);
-f_opt_val = f_opt();
-[Q, R] = qr(rand(D));
+if rand
+    x_opt_val = zeros(D,1);%x_opt(D);
+    f_opt_val = f_opt();
+    [Q, R] = qr(rand(D));
+else
+    x_opt_val = zeros(D,1);
+    f_opt_val = 0;
+    Q = eye(D);
+    R = Q;
+end
 
 f = func(D, x_opt_val, f_opt_val, R, Q);
 
