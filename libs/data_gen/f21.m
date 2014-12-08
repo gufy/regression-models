@@ -1,7 +1,23 @@
-function [ f ] = f21( D, x_opt, f_opt, R, Q )
+function [ f ] = f21( D, params )
 %F21 Gallagher?s Gaussian 101-me Peaks Function
 %   
 
+    if nargin < 1
+        D = 2;
+    end
+
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    R = params{3};
+    
+    if length(params) > 4
+        rng(params{5});
+    else
+        rng(1);
+    end
+    
     w = [10 (1.1 + 8 * ((2:101) - 2) / 99)];
     
     C(:,:,1) = lambda(1000, D, 1) / (1000 ^ (1/4));

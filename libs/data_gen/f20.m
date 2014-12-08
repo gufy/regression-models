@@ -1,7 +1,23 @@
-function [ f ] = f20( D, x_opt, f_opt, R, Q )
+function [ f ] = f20( D, params )
 %F20 Schwefel Function
 % It's log-transformed, i.e. real(log(f(x) - f_opt) / log(10))
 
+    if nargin < 1
+        D = 2;
+    end
+    
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    x_opt = params{1};
+    
+    if length(params) > 4
+        rng(params{5});
+    else
+        rng(1);
+    end
+    
     ones_pm = round(rand(D,1)) * 2 - 1;
         
     function [res] = z(x)

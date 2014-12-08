@@ -1,4 +1,4 @@
-function [ f ] = f16( D, x_opt, f_opt, R, Q )
+function [ f ] = f16( D, params )
 % Weierstrass Function
 % One parameter version:
 % a = 1/2;
@@ -13,6 +13,18 @@ function [ f ] = f16( D, x_opt, f_opt, R, Q )
 %
 % plot(x,y);
 
+    if nargin < 1
+        D = 2;
+    end
+
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    x_opt = params{1};
+    f_opt = params{2};
+    R = params{3};
+    Q = params{4};
 
     f_0 = 0;
 

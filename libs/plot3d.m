@@ -1,4 +1,4 @@
-function [ ] = plot3d( func, range, rand )
+function [ ] = plot3d( func, range )
 
 format long
 D = 2;
@@ -25,7 +25,9 @@ else
     R = Q;
 end
 
-f = func(D, x_opt_val, f_opt_val, R, Q);
+params = {x_opt_val, f_opt_val, R, Q};
+
+f = func(D, params);
 
 ran = xmin:0.1:xmax;
 N = length(ran)*length(ran);

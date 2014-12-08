@@ -18,12 +18,17 @@ Q = R;
 x_opt_val = zeros(D,1);
 f_opt_val = 0;
 
-f = func(D, x_opt_val, f_opt_val, R, Q);
+params = {x_opt_val, f_opt_val, R, Q};
 
-X = linspacem(minVal,maxVal,N,2);
-T = zeros(size(X,1),1); 
-for i = 1:(N*N)
-    T(i) = f(X(i,:)');
+f = func(D, params);
+
+X = zeros(size(N,1),D); 
+T = zeros(size(N,1),1); 
+
+for i = 1:N
+    x = rand(D,1)*(maxVal - minVal) + minVal;
+    X(i,:) = x;
+    T(i,1) = f(x);
 end
 
 end

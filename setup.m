@@ -7,3 +7,5 @@ addpath([mydir,'libs','/','data_gen','/','common'])
 addpath([mydir,'sims'])
 addpath([mydir,'libs','/','gpml'])
 addpath([mydir,'examples'])
+
+startup
