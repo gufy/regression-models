@@ -1,42 +1,47 @@
-func = @f15;
-D = 2;
-R = eye(D);
-Q = R;
 
-x_opt_val = zeros(D,1);
-f_opt_val = 0;
-
-f = func(D, x_opt_val, f_opt_val, R, Q);
+[X, T] = dataSample(@f15, 2, 2000);
 
 %%
 
-N = 100;
+model = polyfitSim(X, T);
 
 %%
-X = linspacem(-5,5,N,2);
-T = zeros(size(X,1),1); %f(X);
-for i = 1:(N*N)
-    T(i) = f(X(i,:)');
+
+outputPath = ['outputs/sims/', 'f15-polyfit', '-', datetimestr];
+plotTrainedModel(model, 50, 5, -5, outputPath);
+imageTrainedModel(model, 50, 5, -5, [outputPath,'-im']);
+save([outputPath,'.mat'], 'model');
+
+%% crossvalidate
+
+FI = 15;
+fname = ['f', int2str(FI)];
+f = str2func(fname);
+
+[X, T] = dataSample(f, 2, 2000);
+
+[test_err, train_err, params_comb] = crossValidateModel(@polyfitSim, X, T);
+
+%% plot cross validate results
+
+params_mat = cell2mat(params_comb);
+cc=hsv(12);
+figure;
+for I = 1:length(params{2})
+    el = cell2mat(params{2}(I));
+    dat = params_mat((params_mat(:,2)) == el, 1);
+    vals = test_err(params_mat(:,2) == el);
+    plot(dat, vals,'color',cc(I,:));
+    display(vals);
+    hold on
+    vals = train_err(params_mat(:,2) == el);
+    plot(dat, vals, '--','color',cc(I,:));
+    display(vals);
+    hold on
 end
+legend({'5', '5'},'Location','NorthEast');
+hold off;
 
-%%
 
-mdl = fitlm(X,T,'Y ~ (A + B)^6','VarNames',{'A', 'B', 'Y'});
 
-%%
 
-N = 50;
-[XS, YS] = meshgrid(linspace(-4,4,N),linspace(-4,4,N));
-ZS = zeros(N,N);
-
-X = [XS(:) YS(:)]';
-ZS = mdl.predict(X');
-%ZS = T;
-ZS = reshape(ZS, [N N]);
-
-mesh(XS, YS, ZS);
-
-%%
-
-TS = reshape(T, [N N]);
-mesh(XS, YS, TS);

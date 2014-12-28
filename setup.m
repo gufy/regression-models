@@ -6,6 +6,8 @@ addpath([mydir,'libs','/','data_gen'])
 addpath([mydir,'libs','/','data_gen','/','common'])
 addpath([mydir,'sims'])
 addpath([mydir,'libs','/','gpml'])
+addpath([mydir,'libs','/','libsvm'])
 addpath([mydir,'examples'])
+addpath([mydir,'process'])
 
 startup

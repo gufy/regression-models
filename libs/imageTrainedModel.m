@@ -25,7 +25,7 @@ ZS = predict(X2);
 ZS = reshape(ZS, [N N]);
 
 f = figure;
-image(-linX, -linX, ZS);
+imagesc(-linX, -linX, ZS);
 savefig(savePath);
 saveas(f, savePath, 'png');
 
