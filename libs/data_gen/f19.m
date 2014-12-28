@@ -1,7 +1,17 @@
-function [ f ] = f19( D, x_opt, f_opt, R, Q )
+function [ f ] = f19( D, params )
 %F19 Composite Griewank-Rosenbrock Function F8F2
 %   
 
+    if nargin < 1
+        D = 2;
+    end
+    
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    R = params{3};
+    
     function [res] = s(x) 
         z = max(1, sqrt(D) / 8) * R * x + 0.5;
         res = 100 * (z.^2 - [z(2:D); 0].^2) + (z - 1) .^ 2;

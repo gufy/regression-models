@@ -1,8 +1,21 @@
-function [ f ] = f17( D, x_opt, f_opt, R, Q )
+function [ f ] = f17( D, params )
 %F_17 Schaffers F7 Function
 %  instead of lambda(10, D) uses lambda(1.5, D)
 %  instead of T_asy(..., 0.5) uses 0.1
 
+    if nargin < 1
+        D = 2;
+    end
+
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    x_opt = params{1};
+    f_opt = params{2};
+    R = params{3};
+    Q = params{4};
+    
     function [res] = f17_compute(x)
         z = lambda(10, D) * Q * T_asy(R*(x - x_opt), 0.12);
         %z = x;

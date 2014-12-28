@@ -1,7 +1,25 @@
-function [ f ] = f24( D, x_opt, f_opt, R, Q )
+function [ f ] = f24( D, params )
 %F24 Lunacek bi-Rastrigin Function
 %   
 
+    if nargin < 1
+        D = 2;
+    end
+
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    x_opt = params{1};
+    R = params{3};
+    Q = params{4};
+    
+    if length(params) > 4
+        rng(params{5});
+    else
+        rng(1);
+    end
+    
     ones_pm = round(rand(D,1)) * 2 - 1;
 
     d = 1;

@@ -1,6 +1,22 @@
-function [ f ] = f22( D, x_opt, f_opt, R, Q )
+function [ f ] = f22( D, params )
 %F22 Gallagher?s Gaussian 21-hi Peaks Function
 %   
+
+    if nargin < 1
+        D = 2;
+    end
+
+    if nargin < 2
+        params = default_params(D);
+    end
+    
+    R = params{3};
+    
+    if length(params) > 4
+        rng(params{5});
+    else
+        rng(1);
+    end
 
     y = zeros(21, D);
     y(1,:) = rand(1,D) * 8 - 4;

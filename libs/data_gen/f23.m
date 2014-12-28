@@ -1,6 +1,18 @@
-function [ f ] = f23( D, x_opt, f_opt, R, Q )
+function [ f ] = f23( D, params )
 %F23 Katsuura Function
 %   Properties Highly rugged and highly repetitive function with more than 10D global optima
+
+if nargin < 1
+    D = 2;
+end
+
+if nargin < 2
+    params = default_params(D);
+end
+
+x_opt = params{1};
+R = params{3};
+Q = params{4};
 
 function [s] = z_sum(x) 
 

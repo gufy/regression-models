@@ -1,12 +1,8 @@
-func = @f15;
-D = 2;
-R = eye(D);
-Q = R;
+[X, T] = dataSample(@f15, 2, 2000);
 
-x_opt_val = zeros(D,1);
-f_opt_val = 0;
+%%
 
-f = func(D, x_opt_val, f_opt_val, R, Q);
+model = nnSim(X, T);
 
 %%
 
