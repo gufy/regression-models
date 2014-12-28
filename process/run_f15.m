@@ -11,6 +11,8 @@ models{2}.params = {{0.001, 0.1, 1}};
 
 results = crossValidateModels(models, X, T);
 
+save(['data/f15-crossval-', datetimestr,'.mat'], 'results', 'models');
+
 %%
 
 y = [0.001, 0.05, 0.1, 0.5, 1, 2, 5, 20, 40, 80];

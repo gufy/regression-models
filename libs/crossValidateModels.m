@@ -58,6 +58,11 @@ for I = 1:length(models)
         fprintf('Train error: %f, test error: %f\n\n', param_train_err(I), param_test_err(I));
 
     end
+    
+    results{I}.train_err = param_train_err;
+    results{I}.test_err = param_test_err;
+    results{I}.params = param_combs;
+    
 end
 
 end
