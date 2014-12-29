@@ -1,12 +1,13 @@
 
 clear models;
 
-name = ['f16-', num2str(DIM), 'D-crossval-', datetimestr];
 D = [2, 5, 10, 20]; %, 40];
 
 for DI = 1:length(D)
 
 DIM=D(DI);
+name = ['f16-', num2str(DIM), 'D-crossval-', datetimestr];
+
 fprintf('\nDimension=%d\n------\n', DIM);
 models{1} = struct('name', 'SVM', 'model', @svmSim);
 models{1}.params = {{3}, {2}, {2, 5}};
