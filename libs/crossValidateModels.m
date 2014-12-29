@@ -1,4 +1,4 @@
-function [ results ] = crossValidateModels( models, X, T )
+function [ results ] = crossValidateModels( models, X, T, progressCallback )
 
 for M_I = 1:length(models)
     
@@ -62,6 +62,8 @@ for M_I = 1:length(models)
     results{M_I}.train_err = param_train_err;
     results{M_I}.test_err = param_test_err;
     results{M_I}.params = param_combs;
+    
+    progressCallback(results, models);
     
 end
 
