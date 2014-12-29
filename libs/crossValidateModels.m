@@ -1,11 +1,11 @@
 function [ results ] = crossValidateModels( models, X, T )
 
-for I = 1:length(models)
+for M_I = 1:length(models)
     
-    trainModel = models{I}.model;
-    params = models{I}.params;
+    trainModel = models{M_I}.model;
+    params = models{M_I}.params;
     
-    fprintf('Model: %s\n', models{I}.name);
+    fprintf('Model: %s\n', models{M_I}.name);
     
     param_combs = allcombs(params{:});
     param_train_err = zeros(1, length(params));
@@ -59,9 +59,9 @@ for I = 1:length(models)
 
     end
     
-    results{I}.train_err = param_train_err;
-    results{I}.test_err = param_test_err;
-    results{I}.params = param_combs;
+    results{M_I}.train_err = param_train_err;
+    results{M_I}.test_err = param_test_err;
+    results{M_I}.params = param_combs;
     
 end
 
