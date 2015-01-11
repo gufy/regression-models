@@ -1,4 +1,6 @@
+load('data/ENB2012.mat');
 
+%%
 labels = {
     'X1	Relative Compactness',
     'X2	Surface Area',

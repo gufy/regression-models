@@ -41,11 +41,34 @@ end
 ZS = zeros(N,N);
 
 X2 = [XS(:) YS(:)];
-ZS = predict(X2);
-ZS = reshape(ZS, [N N]);
+[ZS, StdTr] = predict(X2);
 
+if 0 && ~isempty(StdTr)
+    hold on;
+    
+    if size(StdTr, 2) == 1
+        XU = ZS' + StdTr';
+        XL = ZS' - StdTr';
+    else
+        XU = StdTr(:,1)';
+        XL = StdTr(:,2)';
+    end
+
+    XU = reshape(XU, [N N]);
+    XL = reshape(XL, [N N]);
+    
+    me = mesh(XS, YS, XU);
+    set(me,'FaceColor',[1 0 0],'FaceAlpha',0.5);
+    
+    me = mesh(XS, YS, XL);
+    set(me,'FaceColor',[1 0 0],'FaceAlpha',0.5);
+    
+end
+
+ZS = reshape(ZS, [N N]);
 f = fig;
 mesh(XS, YS, ZS);
+hold off;
 
 if savePath
     savefig(savePath);
