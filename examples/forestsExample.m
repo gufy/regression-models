@@ -1,5 +1,5 @@
 
-[X, T] = dataSample(@f15, 2, 2000);
+[X, T] = dataSample(@f17, 2, 2000);
 
 [T, Tfw, Tbw] = minmaxNorm(T);
 
@@ -51,9 +51,10 @@ plotTrainedModel(model, 100, 5, -5);
 
 %params = {num2cell(400:25:500), {5}};%, 10, 20, 50, 100}};
 
-params = {{400}, num2cell(1:2:11)};
+params = {{400}, {5, 10}};
 
-[test_err, train_err, params_comb] = crossValidateModel(@forestsSim, X, T, params, @(test_err, train_err, param_combs) plotCrossValidateResults(test_err, train_err, param_combs, params));
+%[test_err, train_err, params_comb] = crossValidateModel(@forestsSim, X, T, params, @(test_err, train_err, param_combs) plotCrossValidateResults(test_err, train_err, param_combs, params));
+[test_err, train_err, params_comb] = crossValidateModel(@forestsSim, X, T, params);
 
 %% plot cross validate results
 

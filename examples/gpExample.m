@@ -1,5 +1,5 @@
 
-[X, T] = dataSample(@f17, 2, 5000);
+[X, T] = dataSample(@f17, 5, 5000);
 
 %%
 

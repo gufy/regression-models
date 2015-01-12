@@ -1,4 +1,4 @@
-function [  ] = plotTrainedModel( predict, N, maxVal, minVal, savePath, fig )
+function [ f ] = plotTrainedModel( predict, N, maxVal, minVal, savePath, fig, Xbw, Ybw)
 
 if nargin < 3 
     maxVal = 5;
@@ -12,8 +12,16 @@ if nargin < 5
     savePath = 0;
 end
 
-if nargin < 6
+if nargin < 6 || fig == 0
     fig = figure;
+end
+
+if nargin < 7
+    Xbw = 0;
+end
+
+if nargin < 8
+    Ybw = 0;
 end
 
 if nargin < 2
@@ -41,7 +49,26 @@ end
 ZS = zeros(N,N);
 
 X2 = [XS(:) YS(:)];
-[ZS, StdTr] = predict(X2);
+
+if nargout('predict') > 1
+    [ZS, StdTr] = predict(X2);
+else
+    StdTr = 0;
+    ZS = predict(X2);
+end
+
+if iscell(Xbw)
+    XS = Xbw{1}(XS);
+    YS = Xbw{2}(YS);
+    X2 = [XS(:) YS(:)];
+end
+
+if isa(Ybw, 'function_handle')
+    ZS = Ybw(ZS);
+    if StdTr
+        StdTr = Ybw(StdTr);
+    end
+end
 
 if 0 && ~isempty(StdTr)
     hold on;

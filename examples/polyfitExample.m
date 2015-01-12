@@ -1,13 +1,19 @@
 
 [X, T] = dataSample(@f17, 2, 5000);
+[T, Tfw, Tbw] = minmaxNorm(T);
 
 %%
 
-model = polyfitSim(X, T);
+model = polyfitSim(X, T, 'y ~ (x1 + x2)^15');
 
 %%
 
-outputPath = ['outputs/sims/', 'f15-polyfit', '-', datetimestr];
+params = {{'quadratic'; 'y ~ (x1 + x2)^15'}};
+[test_err, train_err, params_comb] = crossValidateModel(@polyfitSim, X, T, params);
+
+%%
+
+outputPath = ['outputs/sims/', 'f17-polyfit', '-', datetimestr];
 plotTrainedModel(model, 50, 5, -5, outputPath);
 imageTrainedModel(model, 50, 5, -5, [outputPath,'-im']);
 save([outputPath,'.mat'], 'model');
