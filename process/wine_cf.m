@@ -1,3 +1,6 @@
+setup;
+setup_mail;
+
 %% loading data
 
 clear
