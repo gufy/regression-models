@@ -22,13 +22,12 @@ end
 %%
 
 params = {{100, 200, 300, 400}, {5}};
-[test_err, train_err, params_comb] = crossValidateModel(@forestsSim, X, Y, params);
+[test_err, train_err, params_comb] = crossValidateModel(@gpSim, X, Y, params);
 
 
 %%
 
-model = forestsSim(X, Y, {400, 5});
-%Train error: 0.005579, test error: 0.013645
+model = gpSim(X, Y, {0.1});
 
 %% 1 4
 
@@ -38,12 +37,12 @@ XX = X(:, [1 4]);
 
 %%
 
-params = {{100, 200, 300, 400}, {5}};
-[test_err, train_err, params_comb] = crossValidateModel(@forestsSim, sX, sY, params);
+params = {{1}};
+[test_err, train_err, params_comb] = crossValidateModel(@gpSim, sX, sY, params);
 
 %%
 
-model = nnSim(sX, sY, {0.1, 0.014});
+model = gpSim(sX, sY, {0.001});
 plotTrainedModel(model, 50, 0, 1, 0, 0, Xbw, Ybw);
 xlabel(labels{1});
 ylabel(labels{4});
@@ -51,12 +50,9 @@ zlabel('Quality [0-10]');
 hold on;
 scatter3(XX(:,1), XX(:,2), Y);
 
-
 %%
 
-crossValidateModel(@nnSim, sX, sY, {1.2, 0.001, 100});
-
-%%
-
-model = nnSim(sX, sY, {1.1, 0.01, 100});
-
+model1 = @(x) sim(net, x');
+plotTrainedModel(model1, 50, 0, 1, 0, 0, Xbw, Ybw);
+hold on;
+scatter3(XX(:,1), XX(:,2), Y);

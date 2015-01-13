@@ -20,20 +20,29 @@ system('ulimit -t unlimited');
 name = ['wine-', 'crossval-', datetimestr];
 
 fprintf('\n[wine]\n------\n');
-models{1} = struct('name', 'SVM', 'model', @svmSim);
-models{1}.params = {{3}, {2}, {2, 5}};
 
-models{2} = struct('name', 'Poly', 'model', @polyfitSim);
-models{2}.params = {{'quadratic'}};
+I = 0;
 
-models{3} = struct('name', 'RBF-NN', 'model', @nnSim);
-models{3}.params = {{4,2,1,0.1,0.01,0.001},{0.01, 0.001, 0.0001},{100,200,300,400}};
+I = I + 1;
+models{I} = struct('name', 'SVM', 'model', @svmSim);
+models{I}.params = {{3}, {2}, {2, 5}};
 
-models{4} = struct('name', 'Forests', 'model', @forestsSim);
-models{4}.params = {num2cell(50:50:500), {1, 2, 5, 10, 20, 50, 100}};
+%I = I + 1;
+%models{I} = struct('name', 'Poly', 'model', @polyfitSim);
+%models{I}.params = {{'quadratic'}};
 
-models{5} = struct('name', 'GP', 'model', @gpSim);
-models{5}.params = {{1e-6, 5e-6, 1e-5, 5e-5, 1e-4, 0.001, 0.01, 0.1}};
+%I = I + 1;
+%models{I} = struct('name', 'RBF-NN', 'model', @nnSim);
+%models{I}.params = {{1, 1.1, 1.2, 1.5},{0.01, 0.001, 0.0001, 0.00001},{25, 50, 75, 100}};
+%models{I}.params = {{4,2,1,0.1,0.01,0.001},{0.01, 0.001, 0.0001},{100,200,300,400}};
+
+%I = I + 1;
+%models{I} = struct('name', 'Forests', 'model', @forestsSim);
+%models{I}.params = {num2cell(50:50:500), {1, 2, 5, 10, 20, 50, 100}};
+
+%I = I + 1;
+%models{I} = struct('name', 'GP', 'model', @gpSim);
+%models{I}.params = {{1e-6, 5e-6, 1e-5, 5e-5, 1e-4, 0.001, 0.01, 0.1}, {0}};
 
 results = crossValidateModelsWithParams(models, sX, sY, @(results, models) ...
     save(['data/',name,'.mat'], 'results', 'models') ...

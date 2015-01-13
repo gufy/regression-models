@@ -21,13 +21,10 @@ for K = 1:k
     train_X = X(indices ~= K, :); 
     train_T = T(indices ~= K);
 
-    [Out, model, train_err] = evalc('trainModel(train_X, train_T, params)');
+    [test_err, train_err] = computeModelErrors(trainModel, params, train_X, train_T, test_X, test_T);
     acc_train_err = acc_train_err + train_err;
-        
-    [Out, test_Y] = evalc('model(test_X)');
-    test_err = (1/length(test_T))*sum((test_Y - test_T).^2);
     acc_test_err = acc_test_err + test_err;
-
+    
 end
 
 train_err = acc_train_err / k;
