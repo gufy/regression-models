@@ -20,7 +20,17 @@ hyp2 = minimize(hyp2, @gp, -100, @infExact, [], covfunc, likfunc, X, T);
   
 Y = gp(hyp2, @infExact, [], covfunc, likfunc, X, T, X);
 err_tr = (1/len) * sum((Y - T).^2);
-predict = @(x) ( gp(hyp2, @infExact, [], covfunc, likfunc, X, T, x) );
+
+    function [m, cond] = predictFun(x)
+        
+        [m, cond] = gp(hyp2, @infExact, [], covfunc, likfunc, X, T, x);
+        cond = 2*sqrt(cond);
+        
+    end
+
+    predict = @predictFun;
+    
+%predict = @(x) ( gp(hyp2, @infExact, [], covfunc, likfunc, X, T, x) );
 
 end
 

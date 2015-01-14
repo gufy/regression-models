@@ -10,7 +10,7 @@ Q = R;
 x_opt_val = zeros(D,1);
 f_opt_val = 0;
 
-params = {x_opt_val, f_opt_val, R, Q};
+params = {x_opt_val, f_opt_val, R, Q, 1};
 
 end
 

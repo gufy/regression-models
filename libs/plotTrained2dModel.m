@@ -1,4 +1,4 @@
-function [ f ] = plotTrainedModel( predict, N, maxVal, minVal, savePath, fig, Xbw, Ybw)
+function [ f ] = plotTrained2dModel( predict, N, maxVal, minVal, savePath, fig, Xbw, Ybw)
 
 if nargin < 3 
     maxVal = 5;
@@ -43,7 +43,6 @@ else
     maxValX = maxVal;
     maxValY = maxVal;
 end
-
 
 [XS, YS] = meshgrid(linspace(minValX,maxValX,N),linspace(minValY,maxValY,N));
 ZS = zeros(N,N);

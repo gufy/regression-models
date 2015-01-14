@@ -3,12 +3,10 @@ function [ ] = plotData( X, Y )
 %   Detailed explanation goes here
 
 if size(X, 2) == 1
-    plot(X, Y);
+    scatter(X, Y);
 else
     if size(X, 2) == 2
-        [XS, YS] = meshgrid(X(1,:),X(:,2));
-        ZS = reshape(Y,[length(ran) length(ran)]);
-        mesh(XS, YS, ZS);
+        scatter3(X(:,1), X(:,2), Y);
     else
         fprintf('Cannot %dd plot\n', size(X, 2));
     end
