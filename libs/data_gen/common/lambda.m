@@ -4,16 +4,24 @@ if nargin < 3
     permute = 0;
 end
 
-vec = eye(D);
+if D == 1
+    
+    vec = 1;
+    
+else
 
-id = 1:D;
+    vec = eye(D);
 
-if permute
-    id = randperm(D);
-end
+    id = 1:D;
 
-for i = 1:D 
-    vec(id(i),id(i)) = alpha ^ ((1/2) * (i - 1) / (D - 1));
+    if permute
+        id = randperm(D);
+    end
+
+    for i = 1:D 
+        vec(id(i),id(i)) = alpha ^ ((1/2) * (i - 1) / (D - 1));
+    end
+    
 end
 
 end
