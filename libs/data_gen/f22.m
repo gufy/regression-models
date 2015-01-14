@@ -10,6 +10,7 @@ function [ f ] = f22( D, params )
         params = default_params(D);
     end
     
+    f_opt = params{2};
     R = params{3};
     
     if length(params) > 4

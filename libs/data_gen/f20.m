@@ -11,6 +11,7 @@ function [ f ] = f20( D, params )
     end
     
     x_opt = params{1};
+    f_opt = params{2};
     
     if length(params) > 4
         rng(params{5});
