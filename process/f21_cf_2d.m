@@ -5,7 +5,7 @@ setup_mail;
 
 clear
 
-[X, Y] = dataSample(@f22, 2, 900);
+[X, Y] = dataSample(@f21, 2, 900);
 
 
 %% minmax normalization
