@@ -18,8 +18,8 @@ X = X(:, inmodel);
 %%
 
 curr_labels = labels(inmodel);
-model = forestsSim(sX, sY, {100, 10});
-plotTrainedModel(model, 50, 0, 1, 0, 0, Xbw, Ybw);
+model = gpSim(sX, sY, {0.5});
+plotTrained2dModel(model, 50, 0, 1, 0, 0, Xbw, Ybw);
 xlabel(curr_labels{1});
 ylabel(curr_labels{2});
 zlabel('Quality [0-10]');

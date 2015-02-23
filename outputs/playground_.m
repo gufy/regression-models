@@ -25,7 +25,6 @@ u = randn(Len,1);
 y = m + L * u; 
 I = zeros(Len);
 
-plot(x,y,'r+', 'LineWidth', 2)
 hold all
 
 xmin = min([(x-0.1); -1.9]);
@@ -59,3 +58,5 @@ end
 %     plot(z,Y(I,:), 'Color', ColorSet(I,:))
 % end
 
+
+plot(x,y,'r+', 'LineWidth', 2)

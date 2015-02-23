@@ -1,6 +1,6 @@
 
 clear;
-[X, Y] = dataSample(@f21, 1, 120);
+[X, Y] = dataSample(@f21, 2, 900);
 
 [X, Xfw, Xbw] = minmaxNorm(X);
 [Y, Yfw, Ybw] = minmaxNorm(Y);
@@ -15,11 +15,11 @@ clear;
 % {1.2, 0.0001, 1000});
 
 
-%% 120
+%% 900
 
-model = gpSim(X, Y, {10});
-%model = forestsSim(X, Y, {100, 1});
-%model = nnSim(X, Y, {0.1	1.00E-05	150});
+%model = gpSim(X, Y, {0.01});
+%model = forestsSim(X, Y, {650	1});
+model = nnSim(X, Y, {0.1	0.001	300});
 
 %%
 
@@ -33,13 +33,12 @@ h(1).Color = 'k';
 
 %%
 
-[~, h] = plotTrained1dModel(model, 1000, 0, 1, 0, f);
-h(1).Color = 'r';
-h(1).LineWidth = 1;
+f = figure;
+plotTrained2dModel(model, 100, 0, 1, 0, f);
 
 Y2 = model(X);
 err = (1/length(Y))*sum((Y2 - Y).^2);
-title(['GP [ err = ', num2str(err), ' ]']);
+title(['RBF [ err = ', num2str(err), ' ]']);
 
 %%
 
