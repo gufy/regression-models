@@ -1,4 +1,4 @@
-function [ model, err_tr ] = nnSim( X, T, params )
+function [ res, err_tr ] = nnSim( X, T, params )
 %NNSIM Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -34,7 +34,10 @@ end
 
 Y = net(X');
 err_tr = (1/len) * sum((Y' - T).^2);
-model = @(x) net(x')';
+predict = @(x) net(x')';
+
+res.predict = predict;
+res.model = net;
 
 end
 

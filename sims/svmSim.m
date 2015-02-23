@@ -1,4 +1,4 @@
-function [ predict, err_tr ] = svmSim( X, T, params )
+function [ res, err_tr ] = svmSim( X, T, params )
 
 if nargin < 3
     params = {3, 2};
@@ -26,6 +26,9 @@ end
 
 predict = @(x) svmpredict(zeros(size(x,1),1),x,model);
 err_tr = (1/len) * sum((predict(X) - T).^2);
+
+res.predict = predict;
+res.model = model;
 
 end
 
