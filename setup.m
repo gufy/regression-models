@@ -9,7 +9,5 @@ addpath([mydir,'libs','/','gpml'])
 addpath([mydir,'libs','/','libsvm'])
 addpath([mydir,'examples'])
 addpath([mydir,'process'])
-addpath([mydir,'process','/','wine'])
-addpath([mydir,'process','/','wine','/','2d'])
 addpath([mydir,'tests'])
 startup
