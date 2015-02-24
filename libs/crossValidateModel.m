@@ -1,4 +1,4 @@
-function [ test_err, train_err ] = crossValidateModel( trainModel, X, T, params, crossval_setting )
+function [ test_err, train_err, kendall ] = crossValidateModel( trainModel, X, T, params, crossval_setting )
 
 len = size(X, 1);
 
@@ -14,6 +14,8 @@ indices = mod(perm(1:len), k) + 1;
 
 acc_train_err = 0;
 acc_test_err = 0;
+acc_kendall = 0;
+
 for K = 1:k
 
     test_X = X(indices == K, :);
@@ -21,16 +23,18 @@ for K = 1:k
     train_X = X(indices ~= K, :); 
     train_T = T(indices ~= K);
 
-    [test_err, train_err] = computeModelErrors(trainModel, params, train_X, train_T, test_X, test_T);
+    [test_err, train_err, kendall] = computeModelErrorsWithCorrelation(trainModel, params, train_X, train_T, test_X, test_T);
     acc_train_err = acc_train_err + train_err;
     acc_test_err = acc_test_err + test_err;
+    acc_kendall = acc_kendall + kendall;
     
 end
 
 train_err = acc_train_err / k;
 test_err = acc_test_err / k;
+kendall = acc_kendall / k;
 
-fprintf('Train error: %f, test error: %f\n\n', train_err, test_err);
+fprintf('Train error: %f, test error: %f, correlation: %f\n\n', train_err, test_err, kendall);
 
 end
 

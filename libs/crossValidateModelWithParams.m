@@ -18,6 +18,7 @@ end
 
 param_train_err = zeros(1, length(params));
 param_test_err = zeros(1, length(params));
+param_kendall = zeros(1, length(params));
 
 len = size(X, 1);
 crossval_setting.k = 10;
@@ -52,13 +53,14 @@ for I = 1:size(param_combs, 1)
         end
     end
     
-    [train_err, test_err] = crossValidateModel(trainModel, X, T, params_i, crossval_setting);
+    [train_err, test_err, kendall] = crossValidateModel(trainModel, X, T, params_i, crossval_setting);
     
     param_train_err(I) = train_err;
     param_test_err(I) = test_err;
+    param_kendall(I) = kendall;
     
     if isa(drawCallback, 'function_handle') && I > 1
-        drawCallback(param_test_err, param_train_err, param_combs);
+        drawCallback(param_test_err, param_train_err, param_kendall, param_combs);
         pause(0.1);
     end
     
