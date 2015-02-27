@@ -1,20 +1,17 @@
 function [ res, err_tr ] = svmSim( X, T, params )
 
 if nargin < 3
-    params = {3, 2};
+    params.s = 3;
+    params.t = 2;
 end
 
+fields = fieldnames(params);
+
 method = '';
-for I = 1:length(params)
-    if I == 1 
-        method = [method '-s '];
-    elseif I == 2
-        method = [method '-t '];
-    elseif I == 3
-        method = [method '-g '];
-    end
-    
-    method = [method num2str(params{I}) ' '];
+
+for i=1:numel(fields)
+  field = fields{i};
+  method = [method '-' field ' ' num2str(params.(field)) ' '];
 end
 
 len = size(X,1);

@@ -4,18 +4,18 @@ if nargin < 3
     params = {};
 end
 
-if ~isempty(params)
-    NTrees = params{1};
+if isfield(params, 'NTrees')
+    NTrees = params.NTrees;
 else
     NTrees = 100;
 end
 
-if length(params) > 1
-    MinLeaf = params{2};
+if isfield(params, 'MinLeaf')
+    MinLeaf = params.MinLeaf;
 else
     MinLeaf = 5;
 end
-    
+
 len = size(X,1);
 mdl = TreeBagger(NTrees,X,T,'Method','regression','MinLeaf',MinLeaf);
 err_tr = (1/len) * sum((mdl.predict(X) - T).^2);

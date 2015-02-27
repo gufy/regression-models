@@ -6,22 +6,22 @@ if nargin < 3
     params = {};
 end
 
-if length(params) > 2
-    max = params{3}
+if isfield(params, 'max')
+    max = params.max;
 else
     max = 0; % sum-squared error goal
 end
 
-if length(params) > 1
-    eg = params{2}
+if isfield(params, 'eg')
+    eg = params.eg;
 else
     eg = 1.5; % sum-squared error goal
 end
 
-if ~isempty(params) 
-    sc = params{1};
+if isfield(params, 'sc')
+    sc = params.sc;
 else
-    sc = 1;    % spread constant
+    sc = 1; % spread of rbf
 end
 
 len = size(X,1);

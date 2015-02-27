@@ -2,8 +2,8 @@ function [ mdl, err_tr ] = polyfitSim( X, T, params )
 
 method = 'quadratic';
 
-if nargin > 2 
-    method = params
+if nargin > 2 && isfield(params, 'method') 
+    method = params.method;
 end
 
 len = size(X,1);
