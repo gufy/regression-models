@@ -6,13 +6,13 @@ if nargin < 3
     params = {};
 end
 
-if isfield(params,'sn')
+if isfield(params, 'sn')
     sn = params.sn;
 else
     sn = 0.1;
 end
 
-if isfield(params,'cov')
+if isfield(params, 'cov')
     hyp2.cov = params.cov;
 else
     hyp2.cov = [0 ; 0];
@@ -20,9 +20,9 @@ end
    
 len = size(X,1);
 
-if isfield(params.covfun)
+if isfield(params, 'covfun')
     covfunc = params.covfun;
-    if ~isfield(params.cov)
+    if ~isfield(params, 'cov')
         error('cov is not defined in params');
     end
 else

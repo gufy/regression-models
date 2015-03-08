@@ -1,4 +1,4 @@
-function [ f ] = plotTrained2dModel( predict, N, maxVal, minVal, savePath, fig, Xbw, Ybw)
+function [ f ] = plotTrained2dModel( model, N, maxVal, minVal, savePath, fig, Xbw, Ybw)
 
 if nargin < 3 
     maxVal = 5;
@@ -49,12 +49,12 @@ ZS = zeros(N,N);
 
 X2 = [XS(:) YS(:)];
 
-if nargout('predict') > 1
-    [ZS, StdTr] = predict(X2);
-else
-    StdTr = 0;
-    ZS = predict(X2);
-end
+%if nargout('model.predict') > 1
+    [ZS, StdTr] = model.predict(X2);
+%else
+%    StdTr = 0;
+%    ZS = model.predict(X2);
+%end
 
 if iscell(Xbw)
     XS = Xbw{1}(XS);
