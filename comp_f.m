@@ -1,4 +1,4 @@
-function [ ] = comp_f( func_no, D, N, settings_script )
+function [ ] = comp_f( func_no, D, N, settings_script, prod_env )
 
 setup;
 
@@ -6,6 +6,12 @@ try
     setup_mail;
 catch
     display('Cannot initiate mail. Skipping.');
+end
+
+%%
+
+if nargin < 5
+    prod_env = 0;
 end
  
 %%
@@ -67,8 +73,15 @@ end
 
 %%
 
+if prod_env
+    ping = @() system('kinit -R');
+else
+    ping = @() fprintf(' ');
+end
+
 results = crossValidateModelsWithParams(models, X, Y, @(results, models) ...
-    save(['data/',name,'.mat'], 'results', 'models') ...
+    save(['data/',name,'.mat'], 'results', 'models'), ...
+    ping ...
 );
 
 %%

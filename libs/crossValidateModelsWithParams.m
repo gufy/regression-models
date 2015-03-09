@@ -1,4 +1,4 @@
-function [ results ] = crossValidateModelsWithParams( models, X, T, progressCallback )
+function [ results ] = crossValidateModelsWithParams( models, X, T, progressCallback, ping )
 
 for M_I = 1:length(models)
     
@@ -7,7 +7,7 @@ for M_I = 1:length(models)
     
     fprintf('Model: %s\n', models{M_I}.name);
     
-    [param_train_err, param_test_err, kendall, param_combs] = crossValidateModelWithParams( trainModel, X, T, params );
+    [param_train_err, param_test_err, kendall, param_combs] = crossValidateModelWithParams( trainModel, X, T, params, 0, ping );
     
     results{M_I}.train_err = param_train_err;
     results{M_I}.test_err = param_test_err;

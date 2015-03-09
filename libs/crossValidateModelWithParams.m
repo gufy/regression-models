@@ -1,4 +1,4 @@
-function [ param_test_err, param_train_err, param_kendall, params ] = crossValidateModelWithParams( trainModel, X, T, params, drawCallback )
+function [ param_test_err, param_train_err, param_kendall, params ] = crossValidateModelWithParams( trainModel, X, T, params, drawCallback, ping )
 
 if nargin < 5 
     drawCallback = 0;
@@ -37,7 +37,7 @@ for I = 1:length(params)
     
     fprintf('\n');
     
-    [train_err, test_err, kendall] = crossValidateModel(trainModel, X, T, params_item, crossval_setting);
+    [train_err, test_err, kendall] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
     
     param_train_err(I) = train_err;
     param_test_err(I) = test_err;

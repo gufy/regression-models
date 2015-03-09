@@ -1,3 +1,6 @@
+global ping;
+ping = @() (system('kinit -R') && display('baf'));
+
 I = 0;
 
 I = I + 1;
