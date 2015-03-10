@@ -74,9 +74,9 @@ end
 %%
 
 if prod_env
-    ping = @() system('kinit -R');
+    ping = @() system('');
 else
-    ping = @() fprintf(' ');
+    ping = @() fprintf('');
 end
 
 results = crossValidateModelsWithParams(models, X, Y, @(results, models) ...
@@ -93,8 +93,6 @@ try
 catch
     display('Could not sent email with result. Skipping.');
 end
-
-system('kinit -R');
 
 end
 
