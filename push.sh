@@ -5,6 +5,6 @@ N=$4;
 
 echo "On u-pl"$PC" I'm running simulation for f"$F
 
-COMMAND="~/Documents/MATLAB/regression-models; screen ./comp.sh "$F $D $N;
+COMMAND="cd ~/Documents/MATLAB/regression-models; screen ./comp.sh "$F $D $N;
 
 ssh "u-pl"$PC $COMMAND
