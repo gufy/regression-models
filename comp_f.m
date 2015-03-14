@@ -28,7 +28,7 @@ func = str2func(func_name);
 %%
 
 system('ulimit -t unlimited');
-name = [func_name,'-', D, 'd-', N, '-', datetimestr];
+name = [func_name,'-', int2str(D), 'd-', int2str(N), '-', datetimestr];
 fprintf('\n[%s %dd %d]\n------\n', func_name, D, N);
 
 %%
