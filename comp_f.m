@@ -14,6 +14,11 @@ if nargin < 5
     prod_env = 0;
 end
  
+% get rid of some mess from bash
+D = str2double(int2str(D));
+N = str2double(int2str(N));
+func_no = str2double(int2str(func_no));
+
 %%
 
 func_name = strcat('f', int2str(func_no));
