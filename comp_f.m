@@ -28,7 +28,8 @@ func = str2func(func_name);
 %%
 
 system('ulimit -t unlimited');
-name = [func_name,'-', int2str(D), 'd-', int2str(N), '-', datetimestr];
+dataset_name = [func_name,'-', int2str(D), 'd-', int2str(N)];
+name = [dataset_name, '-', datetimestr];
 fprintf('\n[%s %dd %d]\n------\n', func_name, D, N);
 
 %%
@@ -77,15 +78,18 @@ if settings_inited == 0
 end
 
 %%
-
+    
 if prod_env
     ping = @() system('');
 else
     ping = @() fprintf('');
 end
 
-results = crossValidateModelsWithParams(models, X, Y, @(results, models) ...
-    save(['data/',name,'.mat'], 'results', 'models'), ...
+results = crossValidateModelsWithParams(models, X, Y, @(model_name, test_err, train_err, kendall, params) ...
+    store(model_name, dataset_name, datetimestr, params,... 
+        struct( 'error_test_mean', test_err(1), 'error_test_sigma', test_err(2),... 
+                'error_train_mean', train_err(1), 'error_train_sigma', train_err(2),...
+                'kendall_mean', kendall(1), 'kendall_sigma', kendall(2))), ...
     ping ...
 );
 

@@ -1,4 +1,4 @@
-function [ test_err, train_err, kendall ] = crossValidateModel( trainModel, X, T, params, crossval_setting, ping )
+function [ test_err, train_err, kendall, test_err_s, train_err_s, kendall_s ] = crossValidateModel( trainModel, X, T, params, crossval_setting, ping )
 
 len = size(X, 1);
 
@@ -16,9 +16,9 @@ end
 
 indices = mod(perm(1:len), k) + 1;
 
-acc_train_err = 0;
-acc_test_err = 0;
-acc_kendall = 0;
+acc_train_err = zeros(1, k);
+acc_test_err = zeros(1, k);
+acc_kendall = zeros(1, k);
 
 tic;
 for K = 1:k
@@ -29,9 +29,9 @@ for K = 1:k
     train_T = T(indices ~= K);
 
     [test_err, train_err, kendall] = computeModelErrorsWithCorrelation(trainModel, params, train_X, train_T, test_X, test_T);
-    acc_train_err = acc_train_err + train_err;
-    acc_test_err = acc_test_err + test_err;
-    acc_kendall = acc_kendall + kendall;
+    acc_train_err(K) = train_err;
+    acc_test_err(K) = test_err;
+    acc_kendall(K) = kendall;
     fprintf('.');
     
     ping();
@@ -39,11 +39,17 @@ end
 fprintf('\n');
 toc
 
-train_err = acc_train_err / k;
-test_err = acc_test_err / k;
-kendall = acc_kendall / k;
+train_err = sum(acc_train_err) / k;
+train_err_s = sqrt((1/(k*(k-1))) * sum((acc_train_err - train_err) .^ 2)); 
 
-fprintf('Train error: %f, test error: %f, correlation: %f\n\n', train_err, test_err, kendall);
+test_err = sum(acc_test_err) / k;
+test_err_s = sqrt((1/(k*(k-1))) * sum((acc_test_err - test_err) .^ 2)); 
+
+kendall = sum(acc_kendall) / k;
+kendall_s = sqrt((1/(k*(k-1))) * sum((acc_kendall - kendall) .^ 2)); 
+
+fprintf('Train error: %f, test error: %f, correlation: %f\n', train_err, test_err, kendall);
+fprintf('Train sigma: %f, test sigma: %f, corr. sigma: %f\n\n', train_err_s, test_err_s, kendall_s);
 
 end
 

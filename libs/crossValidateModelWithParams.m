@@ -1,12 +1,12 @@
-function [ param_test_err, param_train_err, param_kendall, params ] = crossValidateModelWithParams( trainModel, X, T, params, drawCallback, ping )
+function [ param_test_err, param_train_err, param_kendall, params ] = crossValidateModelWithParams( trainModel, X, T, params, callback, ping )
 
 if nargin < 5 
-    drawCallback = 0;
+    callback = 0;
 end
 
-param_train_err = zeros(1, length(params));
-param_test_err = zeros(1, length(params));
-param_kendall = zeros(1, length(params));
+param_train_err = zeros(2, length(params));
+param_test_err = zeros(2, length(params));
+param_kendall = zeros(2, length(params));
 
 len = size(X, 1);
 crossval_setting.k = 10;
@@ -37,14 +37,14 @@ for I = 1:length(params)
     
     fprintf('\n');
     
-    [train_err, test_err, kendall] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
+    [train_err, test_err, kendall, train_s, test_s, kendall_s] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
     
-    param_train_err(I) = train_err;
-    param_test_err(I) = test_err;
-    param_kendall(I) = kendall;
+    param_train_err(:,I) = [train_err, train_s];
+    param_test_err(:,I) = [test_err, test_s];
+    param_kendall(:,I) = [kendall, kendall_s];
     
-    if isa(drawCallback, 'function_handle') && I > 1
-        drawCallback(param_test_err, param_train_err, param_kendall, param_combs);
+    if isa(callback, 'function_handle')
+        callback([test_err, test_s], [train_err, train_s], [kendall, kendall_s], params_item);
         pause(0.1);
     end
     
