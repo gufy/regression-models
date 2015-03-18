@@ -37,14 +37,14 @@ for I = 1:length(params)
     
     fprintf('\n');
     
-    [train_err, test_err, kendall, train_s, test_s, kendall_s] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
+    [train_err, test_err, kendall, train_s, test_s, kendall_s, time] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
     
     param_train_err(:,I) = [train_err, train_s];
     param_test_err(:,I) = [test_err, test_s];
     param_kendall(:,I) = [kendall, kendall_s];
     
     if isa(callback, 'function_handle')
-        callback([test_err, test_s], [train_err, train_s], [kendall, kendall_s], params_item);
+        callback([test_err, test_s], [train_err, train_s], [kendall, kendall_s], params_item, time);
         pause(0.1);
     end
     

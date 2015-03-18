@@ -1,4 +1,4 @@
-function [ test_err, train_err, kendall, test_err_s, train_err_s, kendall_s ] = crossValidateModel( trainModel, X, T, params, crossval_setting, ping )
+function [ test_err, train_err, kendall, test_err_s, train_err_s, kendall_s, time ] = crossValidateModel( trainModel, X, T, params, crossval_setting, ping )
 
 len = size(X, 1);
 
@@ -37,7 +37,8 @@ for K = 1:k
     ping();
 end
 fprintf('\n');
-toc
+time = toc;
+fprintf('Elapased time: %f\n', time);
 
 train_err = sum(acc_train_err) / k;
 train_err_s = sqrt((1/(k*(k-1))) * sum((acc_train_err - train_err) .^ 2)); 
