@@ -80,7 +80,7 @@ end
 %%
     
 if prod_env
-    ping = @() system('');
+    ping = @() system('kinit -R');
 else
     ping = @() fprintf('');
 end
