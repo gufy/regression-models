@@ -37,7 +37,7 @@ for I = 1:length(params)
     
     fprintf('\n');
     
-    [train_err, test_err, kendall, train_s, test_s, kendall_s, time] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
+    [test_err, train_err, kendall, test_s, train_s, kendall_s, time] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
     
     param_train_err(:,I) = [train_err, train_s];
     param_test_err(:,I) = [test_err, test_s];

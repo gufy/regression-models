@@ -18,6 +18,7 @@ end
 D = str2double(int2str(D));
 N = str2double(int2str(N));
 func_no = str2double(int2str(func_no));
+rng('shuffle');
 
 %%
 
