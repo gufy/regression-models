@@ -99,5 +99,5 @@
 % See the help for the individual likelihood for the computations specific to
 % each likelihood function.
 %
-% Copyright (c) by Carl Edward Rasmussen and Hannes Nickisch, 2014-06-10.
+% Copyright (c) by Carl Edward Rasmussen and Hannes Nickisch, 2015-03-25.
 %                                      File automatically generated using noweb.
