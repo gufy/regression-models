@@ -1,4 +1,4 @@
-function [ f ] = f22( D, params )
+function [ f ] = f22( D, params, noisy )
 %F22 Gallagher?s Gaussian 21-hi Peaks Function
 %   
 
@@ -8,6 +8,10 @@ function [ f ] = f22( D, params )
 
     if nargin < 2
         params = default_params(D);
+    end
+    
+    if nargin < 3
+        noisy = 0;
     end
     
     f_opt = params{2};
@@ -45,7 +49,17 @@ function [ f ] = f22( D, params )
         res = max_x;
     end
 
-    f = @(x) ( T_osz(10 - max_x(x))^2 + f_pen(x) + f_opt);
+    function [res] = f22_compute(x)
+        res = T_osz(10 - max_x(x))^2;
+        
+        if noisy
+            res = res + 10 * randn();
+        end
+        
+        res = res + f_pen(x) + f_opt;
+    end
+
+    f = @(x) f22_compute(x);
 
 end
 

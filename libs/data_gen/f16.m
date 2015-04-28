@@ -1,4 +1,4 @@
-function [ f ] = f16( D, params )
+function [ f ] = f16( D, params, noisy )
 % Weierstrass Function
 % One parameter version:
 % a = 1/2;
@@ -19,6 +19,10 @@ function [ f ] = f16( D, params )
 
     if nargin < 2
         params = default_params(D);
+    end
+    
+    if nargin < 3
+        noisy = 0;
     end
     
     x_opt = params{1};
@@ -45,7 +49,13 @@ function [ f ] = f16( D, params )
             end
         end
 
-        y = 10*(y/D - f_0)^3 + 10/D*f_pen(x) + f_opt;
+        y = 10*(y/D - f_0)^3;
+        
+        if noisy
+            y = y + 25 * randn();
+        end
+        
+        y = y + 10/D*f_pen(x) + f_opt;
         
         res = y;
     end

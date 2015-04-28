@@ -1,4 +1,4 @@
-function [ f ] = f24( D, params )
+function [ f ] = f24( D, params, noisy )
 %F24 Lunacek bi-Rastrigin Function
 %   
 
@@ -8,6 +8,10 @@ function [ f ] = f24( D, params )
 
     if nargin < 2
         params = default_params(D);
+    end
+    
+    if nargin < 3
+        noisy = 0;
     end
     
     x_opt = params{1};
@@ -34,7 +38,13 @@ function [ f ] = f24( D, params )
         
         x_hat = 2*sign(x_opt) .* x;
         z = Q * lambda(100, D) * R * (x_hat - mu_0 * ones(D,1));
-        res = min(sum((x_hat - mu_0) .^ 2), d*D + s*sum((x_hat - mu_1) .^ 2)) + 10 * (D - sum(cos(2*pi*z))) + 10^4 * f_pen(x);
+        res = min(sum((x_hat - mu_0) .^ 2), d*D + s*sum((x_hat - mu_1) .^ 2)) + 10 * (D - sum(cos(2*pi*z)));
+        
+        if noisy
+            res = res + 10 * randn();
+        end
+        
+        res = res + 10^4 * f_pen(x);
         
     end
 

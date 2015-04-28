@@ -1,4 +1,4 @@
-function [ f ] = f20( D, params )
+function [ f ] = f20( D, params, noisy )
 %F20 Schwefel Function
 % It's log-transformed, i.e. real(log(f(x) - f_opt) / log(10))
 
@@ -8,6 +8,10 @@ function [ f ] = f20( D, params )
     
     if nargin < 2
         params = default_params(D);
+    end
+    
+    if nargin < 3
+        noisy = 0;
     end
     
     x_opt = params{1};
@@ -34,7 +38,17 @@ function [ f ] = f20( D, params )
         res = 100 * (lambda(10, D) * (z_hat - x_opt) + x_opt);
     end
 
-    f = @(x) ((-1/D) * sum( z(x) .* sin(sqrt(abs(z(x))))) + 4.189828872724339 + 100 * f_pen(z(x) / 100) + f_opt);
+    function [res] = f20_compute(x) 
+        res = (-1/D) * sum( z(x) .* sin(sqrt(abs(z(x)))));
+       
+        if noisy
+            res = res + 5*10^3 * randn();
+        end
+        
+        res = res + 4.189828872724339 + 100 * f_pen(z(x) / 100) + f_opt;
+    end
+    
+    f = @(x) f20_compute(x);
     f = @(x) real(log(f(x) - f_opt) / log(10));
     
 end

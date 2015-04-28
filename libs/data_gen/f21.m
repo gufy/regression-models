@@ -1,4 +1,4 @@
-function [ f ] = f21( D, params )
+function [ f ] = f21( D, params, noisy )
 %F21 Gallagher?s Gaussian 101-me Peaks Function
 %   
 
@@ -8,6 +8,10 @@ function [ f ] = f21( D, params )
 
     if nargin < 2
         params = default_params(D);
+    end
+    
+    if nargin < 3
+        noisy = 0;
     end
     
     f_opt = params{2};
@@ -46,7 +50,17 @@ function [ f ] = f21( D, params )
         
     end
 
-    f = @(x) ( T_osz(10 - max_x(x))^2 + f_pen(x) + f_opt );
+    function [res] = f21_compute(x)
+        res = T_osz(10 - max_x(x))^2;
+        
+        if noisy
+            res = res + 8 * randn();
+        end
+        
+        res = res + f_pen(x) + f_opt;
+    end
+
+    f = @(x) f21_compute(x);
 
 end
 

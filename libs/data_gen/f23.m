@@ -1,4 +1,4 @@
-function [ f ] = f23( D, params )
+function [ f ] = f23( D, params, noisy )
 %F23 Katsuura Function
 %   Properties Highly rugged and highly repetitive function with more than 10D global optima
 
@@ -8,6 +8,10 @@ end
 
 if nargin < 2
     params = default_params(D);
+end
+
+if nargin < 3
+    noisy = 0;
 end
 
 x_opt = params{1};
@@ -27,7 +31,17 @@ function [s] = z_sum(x)
 
 end
 
-f = @(x) ( 10 / (D ^ 2) * prod( 1 + (1:D) .* z_sum(x)' ) ^ (10 / D ^ 1.2) - 10 / D ^ 2 + f_pen(x) );
+function [res] = f23_compute(x)
+    res = 10 / (D ^ 2) * prod( 1 + (1:D) .* z_sum(x)' ) ^ (10 / D ^ 1.2) ;
+    
+    if noisy 
+        res = res + 10 * randn();
+    end
+    
+    res = res - 10 / D ^ 2 + f_pen(x);
+end
+
+f = @(x) f23_compute(x);
 
 end
 
