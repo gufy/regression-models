@@ -34,9 +34,13 @@ end
 
 Y = net(X');
 err_tr = (1/len) * sum((Y' - T).^2);
-predict = @(x) net(x')';
 
-res.predict = predict;
+function [m, cond] = predictFun(x)
+    [m, cond] = net(x');
+    m = m';
+end
+
+res.predict = @predictFun;
 res.model = net;
 
 end

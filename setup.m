@@ -11,4 +11,6 @@ addpath([mydir,'libs','/','libsvm'])
 addpath([mydir,'examples'])
 addpath([mydir,'process'])
 addpath([mydir,'tests'])
+addpath([mydir,'thesis'])
+addpath([mydir,'thesis','/','code'])
 startup

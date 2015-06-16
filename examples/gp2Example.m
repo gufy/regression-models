@@ -1,5 +1,5 @@
-X = data(:, 1:8);
-Y = data(:, 9:10);
+X = [rand(1,N/2)*3-4 rand(1,N/2)*3+1];
+Y = sin(X) + randn(1, N)*0.1;
 
 len = size(X, 1);
 test_len = floor(len / 3);

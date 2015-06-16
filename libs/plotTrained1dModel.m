@@ -51,8 +51,8 @@ if ~isempty(StdTr) && length(StdTr) > 1
     hold on;
     
     if size(StdTr, 2) == 1
-        XU = y' + StdTr';
-        XL = y' - StdTr';
+        XU = y' + 1.96*StdTr';
+        XL = y' - 1.96*StdTr';
     else
         XU = StdTr(:,1)';
         XL = StdTr(:,2)';

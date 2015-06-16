@@ -59,12 +59,11 @@ if settings_inited == 0
     %models{I} = struct('name', 'Poly', 'model', @polyfitSim);
     %models{I}.params = {{'quadratic'}};
 
-    I = I + 1;
-    models{I} = struct('name', 'RBF-NN', 'model', @nnSim);
-    %models{I}.params = {{4,2,1.5,1.2,1.1,1,0.1,0.01,0.001},{ 0.00001},{150}};
-    models{I}.params = explodeStruct(struct(), ...
-        allcombs([4,2,1.5,1.2,1.1,1,0.1,0.01,0.001], [0.00001], [150]), ...
-        {'sc' 'eq' 'max'});
+    %I = I + 1;
+    %models{I} = struct('name', 'RBF-NN', 'model', @nnSim);
+    %models{I}.params = explodeStruct(struct(), ...
+    %    allcombs([4,2,1.5,1.2,1.1,1,0.1,0.01,0.001], [0.00001], [150]), ...
+    %    {'sc' 'eq' 'max'});
 
     %I = I + 1;
     %models{I} = struct('name', 'Forests', 'model', @forestsSim);
@@ -73,6 +72,13 @@ if settings_inited == 0
     %I = I + 1;
     %models{I} = struct('name', 'GP', 'model', @gpSim);
     %models{I}.params = {{5e-8, 5e-8, 1e-7, 5e-7, 1e-6, 5e-6, 1e-5, 5e-5, 1e-4, 0.001}, {0}};
+    
+    I = I + 1;
+    models{I} = struct('name', 'GP (SEard)', 'model', @gpSim);
+    covParams = log([0.1; 0.5; 1; 2]); %[];
+    covParams = [covParams {log([1])} {log([1])} {log([1])} {log([1])} {log([1])}];
+    snParams = [ 1 ];
+    models{I}.params = explodeStruct(struct('covfun', @covSEard), allcombs( snParams , covParams{:}), {'sn', 'cov'});
 
     settings_inited = 1;
     

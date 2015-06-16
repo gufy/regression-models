@@ -1,4 +1,4 @@
-function [ ] = plot3d( func, range )
+function [ h ] = plot3d( func, range, rand, noisy )
 
 format long
 D = 2;
@@ -9,6 +9,10 @@ end
 
 if nargin < 3
     rand = 0;
+end
+
+if nargin < 4
+    noisy = 0;
 end
 
 xmin = -range; xmax = range;
@@ -27,7 +31,7 @@ end
 
 params = {x_opt_val, f_opt_val, R, Q};
 
-f = func(D, params);
+f = func(D, params, noisy);
 
 ran = xmin:0.1:xmax;
 N = length(ran)*length(ran);
@@ -53,7 +57,7 @@ xscale = ran + x_opt_val(1);
 yscale = ran + x_opt_val(2);
 [XS, YS] = meshgrid(xscale,yscale);
 ZS = reshape(Y,[length(ran) length(ran)]);
-mesh(XS, YS, ZS);
+h = mesh(XS, YS, ZS);
 
 zmin = min(Y);
 zmax = max(Y);
