@@ -22,9 +22,27 @@ rng('shuffle');
 
 %%
 
-func_name = strcat('f', int2str(func_no));
-func = str2func(func_name);
-[X, Y] = dataSample(func, D, N);
+if func_no < 15
+    load('real/data.mat');
+    
+    if func_no == 1
+        X = All.Composition;
+        Y = All.STYAcOH;
+        func_name = 'STYAcOH';
+    end
+    
+    if func_no == 2
+        X = All.Composition;
+        Y = All.STYC2H4;
+        func_name = 'STYC2H4';
+    end
+    
+    
+else
+    func_name = strcat('f', int2str(func_no));
+    func = str2func(func_name);
+    [X, Y] = dataSample(func, D, N);
+end
 
 %%
 
