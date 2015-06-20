@@ -23,17 +23,17 @@ rng('shuffle');
 %%
 
 if func_no < 15
-    load('real/data.mat');
+    load('real/real.mat');
     
     if func_no == 1
-        X = All.Composition;
-        Y = All.STYAcOH;
+        X = real.X;
+        Y = real.T1;
         func_name = 'STYAcOH';
     end
     
     if func_no == 2
-        X = All.Composition;
-        Y = All.STYC2H4;
+        X = real.X;
+        Y = real.T2;
         func_name = 'STYC2H4';
     end
     
