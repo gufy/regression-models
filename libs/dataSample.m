@@ -24,7 +24,7 @@ f_opt_val = 0;
 
 params = {x_opt_val, f_opt_val, R, Q};
 
-f = func(D, params);
+f = func(D, params, noisy);
 
 opt_val = f(x_opt_val)
 display(opt_val)

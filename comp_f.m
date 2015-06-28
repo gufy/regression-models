@@ -1,4 +1,4 @@
-function [ ] = comp_f( func_no, D, N, settings_script, prod_env )
+function [ ] = comp_f( func_no, D, N, settings_script, prod_env, noisy )
 
 setup;
 
@@ -9,6 +9,10 @@ catch
 end
 
 %%
+
+if nargin < 6
+    noisy = 0;
+end
 
 if nargin < 5
     prod_env = 0;
@@ -41,7 +45,7 @@ if func_no < 15
 else
     func_name = strcat('f', int2str(func_no));
     func = str2func(func_name);
-    [X, Y] = dataSample(func, D, N);
+    [X, Y] = dataSample(func, D, N, 5, -5, noisy);
 end
 
 %%
