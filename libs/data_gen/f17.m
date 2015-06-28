@@ -24,7 +24,7 @@ function [ f ] = f17( D, params, noisy )
         z = lambda(10, D) * Q * T_asy(R*(x - x_opt), 0.5);
         %z = x;
         s = sqrt(z.^2 + [z(2:D); 0].^2);
-        res = ((1/(D-1)) * sum(sqrt(s(1:D-1)) + sqrt(s(1:D-1)).*(sin(50 * s(1:D-1) .^ (1/5))^2)))^2;
+        res = ((1/(D-1)) * sum(sqrt(s(1:D-1)) + sqrt(s(1:D-1)).*(sin(50 * s(1:D-1) .^ (1/5)).^2)))^2;
         
         if noisy
             res = res + 15*randn();
