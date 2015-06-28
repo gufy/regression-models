@@ -36,11 +36,6 @@ for i = 1:N
     x = rand(D,1)*(maxVal - minVal) + minVal;
     X(i,:) = x;
     y = f(x);
-    
-    if noisy
-        y = y + opt_val * 0.9 * randn(D,1);
-    end
-    
     T(i,1) = y;
 end
 
