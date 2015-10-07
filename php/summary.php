@@ -2,10 +2,17 @@
 
 require_once(dirname(__FILE__).'/init.php');
 
+parse_str(implode('&', array_slice($argv, 1)), $_GET);
+
+$noisy = 0;
+if (isset($_GET['noisy']) && $_GET['noisy'] == 1) {
+	$noisy = 1;
+}
+
 $path = dirname(__FILE__).'/../thesis/csv';
 
 $result = dibi::query("SELECT DISTINCT
-	r1.dim, r1.dataset, r1.method, r2.error_test_mean as err, r2.error_test_sigma * sqrt(10) as err_sigma
+	r1.dim, r1.dataset, r1.method, r2.error_test_mean as err, r2.error_test_sigma as err_sigma
 FROM (
 	SELECT 
 		r.dataset_full, r.dataset, r.dim, r.method,
@@ -15,15 +22,17 @@ FROM (
 			dataset as dataset_full,
 			REPLACE(REPLACE(dataset, '5d', '05d'), '-5000', '') as dataset,
 			SUBSTRING(REPLACE(REPLACE(dataset, '5d', '05d'), '-5000', ''), 5) as dim,
-			REPLACE(REPLACE(REPLACE(method, ' (SEiso)', ''), ' (SEard)', ''), ' (RQiso)', '') as method,
+			REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(method, 'GP (SEiso)', 'GP'), 'GP (SEard)', 'GP'), 'GP (RQiso)', 'GP'), 'SVM (nu-SVR, rbf)', 'SVM'), 'SVM (epsilon-SVR, rbf)', 'SVM') as method,
 			error_test_mean
 		FROM regressions
+		WHERE noisy = %i
 	) AS r
 	GROUP BY dataset, method
 ) as r1
 LEFT JOIN regressions as r2
 ON (r1.error_test_mean_min = r2.error_test_mean AND r1.dataset_full = r2.dataset)
-ORDER BY dataset, error_test_mean")->fetchAll();
+GROUP BY dataset, method
+ORDER BY dataset, error_test_mean", $noisy)->fetchAll();
 
 $methods = array();
 foreach ($result as $row) {
@@ -48,7 +57,7 @@ foreach ($result as $row) {
 	if (!isset($dataSig[$row->dim][$row->method])) { $dataSig[$row->dim][$row->method] = array(); }
 
 	$numOutperforms = 0;
-	foreach (array('GP', 'RBF-NN', 'Forests', 'Polynomial') as $m) {
+	foreach (array('GP', 'RBF-NN', 'Forests', 'SVM', 'Polynomial') as $m) {
 		if (!isset($data[$row->dim][$row->method][$m])) { $data[$row->dim][$row->method][$m] = 0; }
 		if (!isset($dataSig[$row->dim][$row->method][$m])) { $dataSig[$row->dim][$row->method][$m] = 0; }
 
@@ -83,14 +92,14 @@ foreach ($result as $row) {
 foreach ($data as $key => $dim) {
 	echo "\n\n%";
 	echo $key . "\n";
-	foreach (array('GP', 'RBF-NN', 'Forests', 'Polynomial') as $m1) {
+	foreach (array('GP', 'RBF-NN', 'Forests', 'SVM', 'Polynomial') as $m1) {
 
 		if (!isset($data[$key][$m1])) continue;
 
 		$method = $data[$key][$m1];
 		echo "%" . $m1 . ": ";
 
-		foreach (array('GP', 'RBF-NN', 'Forests', 'Polynomial') as $m2) {
+		foreach (array('GP', 'RBF-NN', 'Forests', 'SVM', 'Polynomial') as $m2) {
 			$r = $method[$m2];
 			$rs = $dataSig[$key][$m1][$m2];
 			echo $r . " ($rs), ";
@@ -103,11 +112,11 @@ foreach ($data as $key => $dim) {
 
 echo "\n\n\n%Summary\n\n";
 
-foreach (array('GP', 'RBF-NN', 'Forests', 'Polynomial') as $m1) {
+foreach (array('GP', 'RBF-NN', 'Forests', 'SVM', 'Polynomial') as $m1) {
 
 	echo "%" . $m1 . ": ";
 
-	foreach (array('GP', 'RBF-NN', 'Forests', 'Polynomial') as $m2) {
+	foreach (array('GP', 'RBF-NN', 'Forests', 'SVM', 'Polynomial') as $m2) {
 
 		$r = 0; $rs = 0;
 
