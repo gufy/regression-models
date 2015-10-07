@@ -1,6 +1,5 @@
 function [ f ] = f18( D, params, noisy )
 %F_18 Schaffers F7 Function moderately ill conditioned
-%  instead of lambda(10, D) uses lambda(1.5, D)
 %  instead of T_asy(..., 0.5) uses 0.1
 
     if nargin < 1

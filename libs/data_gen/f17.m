@@ -1,7 +1,5 @@
 function [ f ] = f17( D, params, noisy )
 %F_17 Schaffers F7 Function
-%  instead of lambda(10, D) uses lambda(1.5, D)
-%  instead of T_asy(..., 0.5) uses 0.1
 
     if nargin < 1
         D = 2;

@@ -32,6 +32,7 @@ for I = 1:length(params)
                 value = num2str(params_item.(key));
             end
         end
+        
         fprintf('%s=%s, ', key, value);
     end
     
