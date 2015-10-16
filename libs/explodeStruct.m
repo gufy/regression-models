@@ -1,4 +1,19 @@
 function [ output ] = explodeStruct( my_struct, values, keys )
+% explodeStruct( my_struct, values, keys )
+%       It extend struct my_struct with new values which are set to keys.
+%
+%   Parameters
+%       my_struct       a struct to be extended, can be empty, i.e.
+%                       struct()
+%       values          a matrix of numbers, for each row a new struct is
+%                       created, i-th element from row is set to i-th key
+%                       from keys
+%       keys            labels for new fields 
+%
+%   Returns
+%       output          an array of structs, each struct is based on
+%                       my_struct, it has new keys with values
+%
 
 fields = fieldnames(my_struct);
 output = my_struct;

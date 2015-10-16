@@ -1,4 +1,16 @@
-function [ ] = comp_f( func_no, D, N, settings_script, prod_env, noisy )
+function [ ] = comp_f( func_no, D, N, settings_script, noisy )
+% comp_f( func_no, D, N, settings_script, noisy )
+%       Start experiments using function with number func_no with D
+%       dimensions and size of data set N. Models are defined in script
+%       settings_script. Choose noisy=1, if you wish to add a noise to the
+%       data set.
+%
+%       Notice that the settings_script does not contain a path to the
+%       script, but it is a name of the script which is being run.
+%
+%   Example:
+%       >> comp_f(15,2,500,'settings_example')
+%
 
 setup;
 
@@ -13,40 +25,21 @@ end
 if nargin < 6
     noisy = 0;
 end
-
-if nargin < 5
-    prod_env = 0;
-end
  
 % get rid of some mess from bash
 D = str2double(int2str(D));
 N = str2double(int2str(N));
 func_no = str2double(int2str(func_no));
-rng('shuffle');
+rng(1);
 
 %%
 
-if func_no < 15
-    load('real/real.mat');
-    
-    if func_no == 1
-        X = real.X;
-        Y = real.T1;
-        func_name = 'STYAcOH';
-    end
-    
-    if func_no == 2
-        X = real.X;
-        Y = real.T2;
-        func_name = 'STYC2H4';
-    end
-    
-    
-else
-    func_name = strcat('f', int2str(func_no));
-    func = str2func(func_name);
-    [X, Y] = dataSample(func, D, N, 5, -5, noisy);
-end
+func_name = strcat('f', int2str(func_no));
+X = rand(D, N)*10 - 5;
+Y = benchmarks(X, func_no);
+X = X';
+Y = Y';
+rng('shuffle');
 
 %%
 
@@ -107,19 +100,12 @@ if settings_inited == 0
 end
 
 %%
-    
-if prod_env
-    ping = @() system('kinit -R');
-else
-    ping = @() fprintf('');
-end
 
 results = crossValidateModelsWithParams(models, X, Y, @(model_name, test_err, train_err, kendall, params, time) ...
     store(model_name, dataset_name, datetimestr, params,... 
         struct( 'error_test_mean', test_err(1), 'error_test_sigma', test_err(2),... 
                 'error_train_mean', train_err(1), 'error_train_sigma', train_err(2),...
-                'kendall_mean', kendall(1), 'kendall_sigma', kendall(2)), time, noisy), ...
-    ping ...
+                'kendall_mean', kendall(1), 'kendall_sigma', kendall(2)), time, noisy) ...
 );
 
 %%

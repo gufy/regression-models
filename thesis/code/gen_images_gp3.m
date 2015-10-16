@@ -1,3 +1,8 @@
+% This script is inspired by Martin Kol??, M.Sc. tutorial to Gaussian
+% Processes available at http://mrmartin.net/?p=223
+% 
+% It does not use the GPML library
+%
 
 for KernelNo = 1:4
 
@@ -46,13 +51,12 @@ for KernelNo = 1:4
         variance(i) = k(prediction_x(i),prediction_x(i));
     end
     plot_variance = @(x,lower,upper,color) set(fill([x,x(end:-1:1)],[upper,fliplr(lower)],color),'EdgeColor',color);
-    %plot_variance(prediction_x,mean-1.96*variance,mean+1.96*variance,[0.9 0.9 0.9])
     hold on
-    %set(plot(prediction_x,mean,'k'),'LineWidth',2)
 
     K=zeros(length(prediction_x),length(prediction_x));
     for i=1:length(prediction_x)
-        for j=i:length(prediction_x)%We only calculate the top half of the matrix. This is an unnecessary speedup trick
+        for j=i:length(prediction_x)
+            %We only calculate the top half of the matrix. This is an unnecessary speedup trick
             K(i,j)=k(prediction_x(i),prediction_x(j));
         end
     end
@@ -67,12 +71,15 @@ for KernelNo = 1:4
         gaussian_process_sample(:,i) = A * standard_random_vector;
     end
 
-    plot(prediction_x,real(gaussian_process_sample))
+    plot(prediction_x,real(gaussian_process_sample));
+    title(name);
 
     % save
 
     set(gcf, 'PaperPosition', [-0.5 -0.25 6 5.5]); %Position the plot further to the left and down. Extend the plot to fill entire paper.
     set(gcf, 'PaperSize', [5 5]); %Keep the same paper size
-    saveas(gcf, ['thesis/images/gp_prior_', name, '.pdf'], 'pdf')
+    saveas(gcf, ['thesis/images/gp_prior_', name, '.pdf'], 'pdf');
+    
+    input('Press Enter to continue');
 
 end

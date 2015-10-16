@@ -1,3 +1,8 @@
+% This script is inspired by Martin Kol??, M.Sc. tutorial to Gaussian
+% Processes available at http://mrmartin.net/?p=223
+% 
+% It does not use the GPML library
+%
 
 for KernelNo = 1:4
 
@@ -55,6 +60,7 @@ for KernelNo = 1:4
 
     figure;
     imagesc(K);
+    title(name);
 
     % save
 
@@ -62,4 +68,6 @@ for KernelNo = 1:4
     set(gcf, 'PaperSize', [5 5]); %Keep the same paper size
     saveas(gcf, ['thesis/images/gp_kernel_', name, '.pdf'], 'pdf')
 
+    input('Press Enter to continue');
+    
 end

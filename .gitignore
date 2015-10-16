@@ -1,5 +1,0 @@
-*.m~
-.DS_Store
-setup_mail.m
-data/*.txt
-data/*.mat

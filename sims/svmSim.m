@@ -1,4 +1,17 @@
 function [ res, err_tr ] = svmSim( X, T, params )
+% svmSim( X, T, params )
+%   From training data set X and T, it builds a model using params.
+%
+%   Parameters
+%       X:      input training set
+%       T:      target training set
+%       params: model parameters and hyper-parameters
+%
+%   Returns
+%       res:    an object with a predict method and a property model
+%               containing the built model
+%       err_tr: training error 
+%
 
 if nargin < 3
     params.s = 3;

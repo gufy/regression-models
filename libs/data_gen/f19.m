@@ -1,6 +1,16 @@
 function [ f ] = f19( D, params, noisy )
 %F19 Composite Griewank-Rosenbrock Function F8F2
 %   
+% f19 function creator. Returns a function which calculate the function
+% values.
+%
+%   D - dimension
+%   params - a cell with paramaters:
+%               x_opt = params{1};
+%               f_opt = params{2};
+%               R = params{3};
+%               Q = params{4};
+%   noisy - if 1, then add noise 
 
     if nargin < 1
         D = 2;

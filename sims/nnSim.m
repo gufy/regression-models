@@ -1,6 +1,17 @@
 function [ res, err_tr ] = nnSim( X, T, params )
-%NNSIM Summary of this function goes here
-%   Detailed explanation goes here
+% nnSim( X, T, params )
+%   From training data set X and T, it builds a model using params.
+%
+%   Parameters
+%       X:      input training set
+%       T:      target training set
+%       params: model parameters
+%
+%   Returns
+%       res:    an object with a predict method and a property model
+%               containing the built model
+%       err_tr: training error 
+%
 
 if nargin < 3
     params = {};

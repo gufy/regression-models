@@ -1,4 +1,17 @@
 function [ mdl, err_tr ] = polyfitSim( X, T, params )
+% polyfitSim( X, T, params )
+%   From training data set X and T, it builds a model using params.
+%
+%   Parameters
+%       X:      input training set
+%       T:      target training set
+%       params: model parameters and hyper-parameters
+%
+%   Returns
+%       res:    an object with a predict method and a property model
+%               containing the built model
+%       err_tr: training error 
+%
 
 method = 'quadratic';
 

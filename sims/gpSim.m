@@ -1,6 +1,17 @@
 function [ res, err_tr ] = gpSim( X, T, params )
-%gpSim
-%   params needs to be fully expanded. here it is an object with all params
+% gpSim( X, T, params )
+%   From training data set X and T, it builds a model using params.
+%
+%   Parameters
+%       X:      input training set
+%       T:      target training set
+%       params: model parameters and hyper-parameters
+%
+%   Returns
+%       res:    an object with a predict method and a property model
+%               containing the built model
+%       err_tr: training error 
+%
 
 if nargin < 3 
     params = {};

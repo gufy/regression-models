@@ -1,6 +1,16 @@
 function [ f ] = f18( D, params, noisy )
 %F_18 Schaffers F7 Function moderately ill conditioned
 %  instead of T_asy(..., 0.5) uses 0.1
+% f18 function creator. Returns a function which calculate the function
+% values.
+%
+%   D - dimension
+%   params - a cell with paramaters:
+%               x_opt = params{1};
+%               f_opt = params{2};
+%               R = params{3};
+%               Q = params{4};
+%   noisy - if 1, then add noise 
 
     if nargin < 1
         D = 2;

@@ -1,4 +1,7 @@
 function [ params ] = default_params( D )
+% default_params( D ) - for dimension D, create default params setup which
+% can be used for functions f15 to f24
+%
 
 if nargin < 1
     D = 2;

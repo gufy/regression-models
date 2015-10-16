@@ -1,10 +1,15 @@
 function [ f ] = f15( D, params, noisy )
+% f15 function creator. Returns a function which calculate the function
+% values.
 %
-% Params:
-%  x_opt = params{1};
-%  f_opt = params{2};
-%  R = params{3};
-%  Q = params{4};
+%   D - dimension
+%   params - a cell with paramaters:
+%               x_opt = params{1};
+%               f_opt = params{2};
+%               R = params{3};
+%               Q = params{4};
+%   noisy - if 1, then add noise 
+%
 
     if nargin < 1
         D = 2;

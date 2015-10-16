@@ -1,6 +1,15 @@
 function [ f ] = f21( D, params, noisy )
 %F21 Gallagher?s Gaussian 101-me Peaks Function
-%   
+% f21 function creator. Returns a function which calculate the function
+% values.
+%
+%   D - dimension
+%   params - a cell with paramaters:
+%               x_opt = params{1};
+%               f_opt = params{2};
+%               R = params{3};
+%               Q = params{4};
+%   noisy - if 1, then add noise 
 
     if nargin < 1
         D = 2;

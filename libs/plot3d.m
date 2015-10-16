@@ -1,4 +1,18 @@
-function [ h ] = plot3d( func, range, rand, noisy )
+function [ h ] = plot3d( func, range, randomize, noisy )
+% plot3d( func, range, randomize, noisy )
+%       Plots 3-dimensional graph of func using interval [-range, range]x[-range, range].
+%       The output can be randomize by setting randomize to 1. A noise can
+%       be added by setting noise to 1.
+%
+%   Parameters
+%       func:       a function handler which is used to calculate function
+%                   values
+%       range:      defines interval [-range, range] from which the first two coordinates
+%                   are uniformly randomly samples, default 5
+%       randomize:  by default the parameters for function handler are kept
+%                   the same, this can be changed by setting randomize to 1
+%       noisy:      set to 1 to add a noise to output of func
+%
 
 format long
 D = 2;
@@ -8,7 +22,7 @@ if nargin < 2
 end
 
 if nargin < 3
-    rand = 0;
+    randomize = 0;
 end
 
 if nargin < 4
@@ -18,7 +32,7 @@ end
 xmin = -range; xmax = range;
 ymin = -range; ymax = range;
 
-if rand
+if randomize
     x_opt_val = zeros(D,1);%x_opt(D);
     f_opt_val = f_opt();
     [Q, R] = qr(rand(D));

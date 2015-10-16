@@ -1,4 +1,11 @@
-function [ param_test_err, param_train_err, param_kendall, params ] = crossValidateModelWithParams( trainModel, X, T, params, callback, ping )
+function [ param_test_err, param_train_err, param_kendall, params ] = crossValidateModelWithParams( trainModel, X, T, params, callback )
+% crossValidateModelWithParams( trainModel, X, T, params, callback )
+%   For given parameter setup, we run a cross validation to get the data.
+%
+%   Use callback handler to perform any additional action after the cross
+%   validation is finished. I.e. store the results to database.
+%
+%   Return test_err, train_err, kendall and the params.
 
 if nargin < 5 
     callback = 0;
@@ -38,7 +45,7 @@ for I = 1:length(params)
     
     fprintf('\n');
     
-    [test_err, train_err, kendall, test_s, train_s, kendall_s, time] = crossValidateModel(trainModel, X, T, params_item, crossval_setting, ping);
+    [test_err, train_err, kendall, test_s, train_s, kendall_s, time] = crossValidateModel(trainModel, X, T, params_item, crossval_setting);
     
     param_train_err(:,I) = [train_err, train_s];
     param_test_err(:,I) = [test_err, test_s];

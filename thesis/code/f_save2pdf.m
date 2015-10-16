@@ -1,10 +1,12 @@
-function [  ] = f_save2pdf( from, to, cols )
-%PLOTALL Plot all functions from f_{from} to f_{to}
+function [  ] = f_save2pdf( from, to )
+%Plot all functions from f_{from} to f_{to}. Show them in figures and save
+% them into pdf. 
+%
+% Target paths:  thesis/images/f15.pdf
 %   
-
-if nargin < 3
-    cols = 5;
-end
+%   Example:
+%       >> f_save2pdf(15, 24)
+%       Prints 3d graphs of functions 15 to 24 and
 
 if nargin < 2
     to = 24;
@@ -15,13 +17,11 @@ if nargin < 1
 end
 
 num = to - from + 1;
-rows = ceil(num / cols);
 
 for I = 1:num
     no = I + from - 1;
     try 
         figure;
-        fprintf('plot3d f%d at %d and %d\n', no, I, rows*cols+I);
         plot3d(str2func(strcat('f', int2str(no))));
         set(gca,'zdir','reverse');
         

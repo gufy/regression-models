@@ -1,0 +1,1 @@
+comp_f(15, 5, 5000, 'settings_example')

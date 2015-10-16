@@ -1,4 +1,24 @@
 function [ string_out ] = struct2str( struct_in, delimiter )
+% struct2str( struct_in, delimiter )
+%   Converts a struct into a string.
+%
+%   Parameters
+%       struct_in:      a structure to be converted into string
+%       delimiter:      a delimiter used, default ',' (a comma)
+%
+%   Returns
+%       string_out:     a result string
+%
+%   Example
+%       >> struct2str( struct('method', 'rbf-nn', 'dataset', 'f16-10d-5000') )
+%       ans =
+%       method=rbf-nn,dataset=f16-10d-5000
+%
+%       >> struct2str( struct('method', 'rbf-nn', 'dataset', 'f16-10d-5000'), '&' )
+%       ans =
+%       method=rbf-nn&dataset=f16-10d-5000
+%
+
 
 if nargin < 2
     delimiter = ',';

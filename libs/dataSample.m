@@ -1,4 +1,25 @@
 function [ X, T ] = dataSample( func, D, N, maxVal, minVal, noisy )
+%   dataSample( func, D, N, maxVal, minVal, noisy )
+%       Using function prescription func, dimension D, data set size
+%       N and minimum and maximum value allowed.
+%
+%   Parameters
+%       func    a function handler, required
+%       D       a dimension of the data set
+%       N       a size of the data set
+%       maxVal  upper bound of the interval from which the input values
+%       are randomly drawn, default 5
+%       minVal  lower bound of the interval from which the input values
+%       are randomly drawn, default -maxVal
+%       noisy   whether to add noise or not, default 0
+%
+%   Returns
+%       X       N samples uniformly drawn from D-dimensional interval [minVal, maxVal]^D
+%       T       N target values computed from X using function func
+%
+%   Example
+%       >> dataSample(@f15, 2, 300)
+%
 
 if nargin < 4
     maxVal = 5;
@@ -26,8 +47,7 @@ params = {x_opt_val, f_opt_val, R, Q};
 
 f = func(D, params, noisy);
 
-opt_val = f(x_opt_val)
-display(opt_val)
+opt_val = f(x_opt_val);
 
 X = zeros(size(N,1),D); 
 T = zeros(size(N,1),1); 

@@ -1,4 +1,7 @@
-%% overfitting and underfitting
+%% number of trees in the random forest
+
+% Nums is a list of number of trees in the random forest
+% For each we generate graph of the model fit
 
 Nums = [2 5 50 400];
 for I = 1:length(Nums)
@@ -8,7 +11,6 @@ for I = 1:length(Nums)
     sin_y = sin(lin);
     
     f = figure;
-    %f = subplot(2, 2, I);
     plot(lin, sin_y);
     hold on;
 
@@ -18,12 +20,9 @@ for I = 1:length(Nums)
     scatter(X, T);
     axis([-4 4 -2.5 2.5]);
 
-    %
-
     model = forestsSim(X', T', struct('NTrees', Num, 'MinLeaf', 5, 'NVarToSample', 1));
     
     plotTrained1dModel(model.predict, 100, -4, 4, 0, f);
-    %title([num2str(Num) ' Trees']);
     
     set(gcf, 'PaperPosition', [-0.5 -0.25 6 5.5]); %Position the plot further to the left and down. Extend the plot to fill entire paper.
     set(gcf, 'PaperSize', [5 5]); %Keep the same paper size
@@ -31,7 +30,10 @@ for I = 1:length(Nums)
 
 end
 
-%%
+%% number of minimum of data points in a leaf
+
+% Nums is a list of minimums of data points in a leaf
+% For each we generate graph of the model fit
 
 
 Nums = [40 20 10 5 2 1];
@@ -42,7 +44,6 @@ for I = 1:length(Nums)
     sin_y = sin(lin);
     
     f = figure;
-    %f = subplot(2, 2, I);
     plot(lin, sin_y);
     hold on;
 
@@ -57,7 +58,6 @@ for I = 1:length(Nums)
     model = forestsSim(X', T', struct('NTrees', 40, 'MinLeaf', MinLeaf, 'NVarToSample', 1));
     
     plotTrained1dModel(model.predict, 100, -4, 4, 0, f);
-    %title([num2str(Num) ' Trees']);
     
     set(gcf, 'PaperPosition', [-0.5 -0.25 6 5.5]); %Position the plot further to the left and down. Extend the plot to fill entire paper.
     set(gcf, 'PaperSize', [5 5]); %Keep the same paper size

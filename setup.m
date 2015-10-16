@@ -1,3 +1,4 @@
+% script to add paths
 me = mfilename;                                            % what is my filename
 mydir = which(me); mydir = mydir(1:end-2-numel(me));        % where am I located
 addpath(mydir(1:end-1))
@@ -8,10 +9,10 @@ addpath([mydir,'sims'])
 addpath([mydir,'sims','/','params'])
 addpath([mydir,'libs','/','gpml'])
 addpath([mydir,'libs','/','libsvm'])
+addpath([mydir,'libs','/','bbob'])
 addpath([mydir,'examples'])
-addpath([mydir,'process'])
-addpath([mydir,'tests'])
-addpath([mydir,'real'])
 addpath([mydir,'thesis'])
 addpath([mydir,'thesis','/','code'])
+
+% initiate gpml library
 startup

@@ -1,4 +1,7 @@
+%% draw radial basis function addition
+
 x = -3:.1:3;
+a = radbas(x);
 a2 = radbas(x-1);
 a3 = radbas(x+1.5);
 a4 = a + a2*1.0 + a3*0.75;
@@ -10,7 +13,9 @@ set(gcf, 'PaperPosition', [-0.5 -0.25 6 5.5]); %Position the plot further to the
 set(gcf, 'PaperSize', [5 5]); %Keep the same paper size
 saveas(gcf, ['thesis/images/rbf_weighted.pdf'], 'pdf');
 
-%%
+input('Press Enter to continue');
+
+%% draw underlapping RBF network  
 
 P = rand(1,20)*8 - 4;
 T = sin(P);
@@ -29,9 +34,11 @@ hold off;
 
 set(gcf, 'PaperPosition', [-0.5 -0.25 6 5.5]); %Position the plot further to the left and down. Extend the plot to fill entire paper.
 set(gcf, 'PaperSize', [5 5]); %Keep the same paper size
-saveas(gcf, ['thesis/images/rbf_underlapping.pdf'], 'pdf');
+saveas(gcf, ['thesis/images/rbf_underlapping.pdf'], 'pdf')
 
-%%
+input('Press Enter to continue');
+
+%% draw overlapping RBF network  
 
 eg = 0.02; % sum-squared error goal
 sc = 100;  % spread constant
@@ -49,7 +56,9 @@ set(gcf, 'PaperPosition', [-0.5 -0.25 6 5.5]); %Position the plot further to the
 set(gcf, 'PaperSize', [5 5]); %Keep the same paper size
 saveas(gcf, ['thesis/images/rbf_overlapping.pdf'], 'pdf');
 
-%%
+input('Press Enter to continue');
+
+%% draw fitting RBF network  
 
 eg = 0.02; % sum-squared error goal
 sc = 2.5;    % spread constant
