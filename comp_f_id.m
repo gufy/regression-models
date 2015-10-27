@@ -59,9 +59,13 @@ results = crossValidateModelsWithParams(models, X, Y, @(model_name, test_err, tr
 
 %%
 
+if exist('data', 'dir') == 0
+    mkdir('data');
+end
+
 save(['data/',name,'.mat'], 'results', 'models');
 
-try 
+try     
     sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], 'Computation done.', ['data/',name,'.mat']); 
 catch
     display('Could not sent email with result. Skipping.');

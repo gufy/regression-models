@@ -26,7 +26,7 @@ job = createJob(cl);
 
 eval(settings_script);
 
-i = 0;
+i = 1;
 for ModelIndex = 1:length(models)
     for ParamIndex = 1:length(models{ModelIndex}.params)
         ident = [int2str(ModelIndex) '-' int2str(ParamIndex)];

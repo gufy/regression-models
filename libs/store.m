@@ -20,6 +20,7 @@ function [ ] = store( method, dataset_name, datetime_started, models, results, t
     results.noisy = noisy;
     
     paramstr = struct2str(results, '&');
+    paramstr = regexprep(paramstr, ' ', '%20');
     urlread(['http://vojtechkopal.cz/regressions/save.php?', paramstr]);
 
 end
