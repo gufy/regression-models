@@ -22,7 +22,7 @@ cl.ResourceTemplate = pbs_params;
 cl.HasSharedFilesystem = true;
 cl.NumWorkers = pbs_max_workers;
 
-job = createJob(cl);
+    job = createJob(cl);
 
 eval(settings_script);
 
@@ -32,7 +32,7 @@ for ModelIndex = 1:length(models)
         ident = [int2str(ModelIndex) '-' int2str(ParamIndex)];
         model = struct('name', models{ModelIndex}.name, 'model', models{ModelIndex}.model, 'params', models{ModelIndex}.params(ParamIndex));
         % {func_no, D, N, id, models, noisy}
-        tasks(i) = createTask(job, @comp_f_id, 0, {15, 2, 200, ident, model, 0});
+        tasks(i) = createTask(job, @comp_f_id, 0, {15, 2, 200, ident, {model}, 0, exppath_short});
         i = i + 1;
     end
 end

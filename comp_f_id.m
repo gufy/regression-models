@@ -1,4 +1,4 @@
-function [ ] = comp_f_id( func_no, D, N, id, models, noisy )
+function [ ] = comp_f_id( func_no, D, N, id, models, noisy, exppath )
 % comp_f( func_no, D, N, settings_script, noisy )
 %       Start experiments using function with number func_no with D
 %       dimensions and size of data set N. Models are defined in script
@@ -16,7 +16,7 @@ setup;
 
 try
     setup_mail;
-    sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], 'Computation started.'); 
+    sendmail('vojtech.kopal@gmail.com', ['MATLAB Computation started'], 'Computation started.'); 
 catch
     display('Cannot initiate mail. Skipping.');
 end
@@ -49,14 +49,24 @@ dataset_name = [func_name,'-', int2str(D), 'd-', int2str(N)];
 name = [dataset_name, '-', id, '-', datetimestr];
 fprintf('\n[%s %dd %d]\n------\n', func_name, D, N);
 
+try 
+    sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], 'Computation started.'); 
+catch
+    
+end
+
 %%
 
-results = crossValidateModelsWithParams(models, X, Y, @(model_name, test_err, train_err, kendall, params, time) ...
-    store(model_name, dataset_name, datetimestr, params,... 
-        struct( 'error_test_mean', test_err(1), 'error_test_sigma', test_err(2),... 
-                'error_train_mean', train_err(1), 'error_train_sigma', train_err(2),...
-                'kendall_mean', kendall(1), 'kendall_sigma', kendall(2)), time, noisy) ...
-);
+try
+    results = crossValidateModelsWithParams(models, X, Y, @(model_name, test_err, train_err, kendall, params, time) ...
+        store(model_name, dataset_name, datetimestr, params,... 
+            struct( 'error_test_mean', test_err(1), 'error_test_sigma', test_err(2),... 
+                    'error_train_mean', train_err(1), 'error_train_sigma', train_err(2),...
+                    'kendall_mean', kendall(1), 'kendall_sigma', kendall(2)), time, noisy) ...
+    );
+catch e
+    sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], getReport(e));
+end
 
 %%
 

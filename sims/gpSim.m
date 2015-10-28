@@ -32,7 +32,11 @@ end
 len = size(X,1);
 
 if isfield(params, 'covfun')
-    covfunc = params.covfun;
+    if isa(params.covfun, 'char')
+        covfunc = str2fun(params.covfun);
+    else
+        covfunc = params.covfun;
+    end
     if ~isfield(params, 'cov')
         error('cov is not defined in params');
     end
