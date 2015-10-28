@@ -16,6 +16,7 @@ setup;
 
 try
     setup_mail;
+    sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], 'Computation started.'); 
 catch
     display('Cannot initiate mail. Skipping.');
 end
@@ -59,16 +60,20 @@ results = crossValidateModelsWithParams(models, X, Y, @(model_name, test_err, tr
 
 %%
 
-if exist('data', 'dir') == 0
-    mkdir('data');
-end
-
-save(['data/',name,'.mat'], 'results', 'models');
-
 try     
     sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], 'Computation done.', ['data/',name,'.mat']); 
 catch
     display('Could not sent email with result. Skipping.');
+end
+
+try
+    if exist('data', 'dir') == 0
+        mkdir('data');
+    end
+
+    save(['data/',name,'.mat'], 'results', 'models');
+catch
+    display('Could not sent save result. Skipping.');
 end
 
 end
