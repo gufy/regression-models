@@ -20,6 +20,7 @@ function [ ] = store( method, dataset_name, datetime_started, models, results, t
     results.noisy = noisy;
     
     paramstr = struct2str(results, '&');
+    name = [dataset_name, ', ', method];
     
     sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], ['Storing: ', paramstr]); 
     
