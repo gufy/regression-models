@@ -1,6 +1,6 @@
-function run_metacentrum(exppath_short, settings_script)
+function run_metacentrum(exppath_short, funcNo, dim, settings_script)
 
-walltime = '4h';
+walltime = '12h';
  
 pbs_max_workers = 50;
 pbs_params = ['-l walltime=' walltime ',nodes=^N^:ppn=1,mem=1gb,scratch=1gb,matlab_MATLAB_Distrib_Comp_Engine=^N^'];
@@ -32,7 +32,7 @@ for ModelIndex = 1:length(models)
         ident = [int2str(ModelIndex) '-' int2str(ParamIndex)];
         model = struct('name', models{ModelIndex}.name, 'model', models{ModelIndex}.model, 'params', models{ModelIndex}.params(ParamIndex));
         % {func_no, D, N, id, models, noisy}
-        tasks(i) = createTask(job, @comp_f_id, 0, {15, 2, 200, ident, {model}, 0, exppath_short});
+        tasks(i) = createTask(job, @comp_f_id, 0, {funcNo, dim, 5000, ident, {model}, 0, exppath_short});
         i = i + 1;
     end
 end
