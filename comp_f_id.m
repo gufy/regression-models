@@ -16,7 +16,7 @@ setup;
 
 try
     setup_mail;
-    sendmail('vojtech.kopal@gmail.com', ['MATLAB Computation started'], 'Computation started.'); 
+    display(['Computation started using ', func2str(@minimize), func2str(@gpSim)])
 catch
     display('Cannot initiate mail. Skipping.');
 end
@@ -48,12 +48,6 @@ system('ulimit -t unlimited');
 dataset_name = [func_name,'-', int2str(D), 'd-', int2str(N)];
 name = [dataset_name, '-', id, '-', datetimestr];
 fprintf('\n[%s %dd %d]\n------\n', func_name, D, N);
-
-try 
-    sendmail('vojtech.kopal@gmail.com', ['MATLAB Results: ', name], 'Computation started.'); 
-catch
-    
-end
 
 %%
 
