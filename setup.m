@@ -11,6 +11,7 @@ addpath([mydir,'libs','/','libsvm'])
 addpath([mydir,'libs','/','bbob'])
 addpath([mydir,'thesis'])
 addpath([mydir,'thesis','/','code'])
+addpath([mydir,'exp'])
 
 % initiate gpml library
 startup

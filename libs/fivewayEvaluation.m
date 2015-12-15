@@ -1,6 +1,5 @@
-function [ errors ] = fivewayEvaluation( func_no, model_name, samples, params )
+function [ errors ] = fivewayEvaluation( func_no, model_name, samples, params, D )
 
-D = 2;
 N = 15*D;
 NumSamples = length(samples);
 
@@ -11,7 +10,7 @@ C{4} = [ 2.5;-2.5];
 C{5} = [-2.5;-2.5];
 
 for I = 1:NumSamples
-    samples{I} = rand(D, N)*2 - 1 + repmat(C{I}, 1, N);
+    samples{I} = rand(D, N)*2 - 1 + repmat(C{I}, D, 1);
 end
 
 errors = zeros(NumSamples, 1);
