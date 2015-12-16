@@ -47,8 +47,8 @@ end
 
 likfunc = @likGauss;     
 hyp2.lik = log(sn);
-[O, hyp2] = evalc('minimize(hyp2, @gp, -100, @infExact, [], covfunc, likfunc, X, T)');
-  
+hyp2 = minimize(hyp2, @gp, -100, @infExact, [], covfunc, likfunc, X, T);
+
 fprintf('\ncov=');
 fprintf('%f, ', hyp2.cov)
 fprintf(' lik=%f\n', hyp2.lik)
