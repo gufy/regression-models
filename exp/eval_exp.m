@@ -5,12 +5,22 @@ fprintf('Running evaluation: dim=%d, gen=%d, numtrains=%d, trainrange=%d\n', ...
 d = dir(['exp_data/', 'exp_cmaeslog1_purecmaes_', int2str(params.fun), '_', int2str(params.dim), 'D_*']);
 load(['exp_data/', d.name]);
 
+info = '';
 ErrAcc = 0;
 Errs = zeros(1,30);
 for ExpId = 1:30
     CmaesOut = cmaes_out{ExpId};
     G = params.gen;
     NumTrain = params.numtrains * params.dim;
+    
+    if G > length(CmaesOut.generationStarts)
+        % error, nemame dost generaci
+        ErrAcc = 0;
+        Errs = zeros(1,30);
+        info = 'Too Fast';
+        break;
+    end
+    
     TrainRange = params.trainrange * CmaesOut.sigmas(G)^2;
     M = CmaesOut.means(:, G);
 
@@ -27,7 +37,7 @@ for ExpId = 1:30
     ErrAcc = ErrAcc + Err;
 end
 
-res = struct('err', Err/30, 'errors', Errs);
+res = struct('err', ErrAcc/30, 'errors', Errs, 'info', info);
 
 end
 
