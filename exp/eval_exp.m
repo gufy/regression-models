@@ -2,7 +2,8 @@ function [ res ] = eval_exp( params )
 
 fprintf('Running evaluation: dim=%d, gen=%d, numtrains=%d, trainrange=%d\n', ...
     params.dim, params.gen, params.numtrains, params.trainrange );
-load(['exp_data/', 'exp_cmaeslog1_purecmaes_', int2str(params.fun), '_', int2str(params.dim), 'D_', int2str(params.fun)]);
+d = dir(['exp_data/', 'exp_cmaeslog1_purecmaes_', int2str(params.fun), '_', int2str(params.dim), 'D_*']);
+load(['exp_data/', d.name]);
 
 ErrAcc = 0;
 Errs = zeros(1,30);

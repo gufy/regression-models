@@ -3,7 +3,7 @@ i=1;
 
 % dimension \in {5, 10, 20}  3
 P(i).name = 'dim';
-P(i).values = {2 5 10 20};
+P(i).values = {2}; %{2 5 10 20};
 i = i + 1;
 
 % function \in {1, 2, ?, 24}  24
@@ -66,12 +66,12 @@ i = i + 1;
 
 % lower/upper bounds on hyperparameters ? how to set this?  1
 %P(i).name = 'covhyp_limit';
-%P(i).values = {0, 1};
+%P(i).values = {0}; %{0, 1}; %TODO: Implement
 %i = i + 1;
 
 % mean function ? {fixed as mean from dataset (@meanZero), trained as a hyperparameter (@meanConst)}  2
 P(i).name = 'cov_trainMean';
-P(i).values = {0, 1};
+P(i).values = {0}; %{0, 1}; %TODO: Implement
 i = i + 1;
 
 % run the fitting and testing in different phases of the algorithm progress
@@ -91,7 +91,7 @@ i = i + 1;
 
 % clustering ? ? choose only the specif. number of the training data from the training range (clustering), or use all of them (no clustering)? ? {yes, no}  2
 P(i).name = 'clustertrain';
-P(i).values = {0, 1};
+P(i).values = {0}; %{0, 1}; %TODO: Implement
 i = i + 1;
 
 % testing dataset from generation \in {+1, +5}  2
@@ -101,6 +101,6 @@ i = i + 1;
 
 % algorithm \in {minimize(), fmincon(), CMA-ES}  3
 P(i).name = 'optalg';
-P(i).values = {'minimize', 'fmincon', 'cmaes'};
+P(i).values = {'minimize'}; %{'minimize', 'fmincon', 'cmaes'}; %TODO: Implement
 i = i + 1;
 

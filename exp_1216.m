@@ -31,14 +31,14 @@ job = createJob(cl);
 %%
 
 len = length(p);
+batchSize = 1000;
 tic;
-for I = 1:2 %len % how to iterate efficiently?
-    params = p(I);
+for I = 1:batchSize:len %len % how to iterate efficiently?
+    params = p(I:min(len,I+batchSize-1));
     
-    params = prepare_exp_params(params);
     %eval_exp_and_save(params);
     display(['Create task: ', int2str(I), '/', int2str(len)]);
-    createTask(job, @eval_exp_and_save, 0, {params});
+    createTask(job, @eval_batch, 0, {params});
     
 end
 
