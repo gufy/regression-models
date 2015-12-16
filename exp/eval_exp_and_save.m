@@ -1,6 +1,6 @@
-function [ res ] = eval_exp_and_save( params )
+function [ res ] = eval_exp_and_save( params, exppath_short )
 
-res = eval_exp(params);
+res = eval_exp(params, exppath_short);
 
 % and save
 

@@ -1,3 +1,5 @@
+exp_data
 exp_data/*
 .DS_Store
 *.m~
+setup_mail.m

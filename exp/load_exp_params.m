@@ -3,7 +3,7 @@ i=1;
 
 % dimension \in {5, 10, 20}  3
 P(i).name = 'dim';
-P(i).values = {2}; %{2 5 10 20};
+P(i).values = {5 10 20}; %{2 5 10 20};
 i = i + 1;
 
 % function \in {1, 2, ?, 24}  24

@@ -1,9 +1,9 @@
-function [ res ] = eval_exp( params )
+function [ res ] = eval_exp( params, exppath_short )
 
 fprintf('Running evaluation: dim=%d, gen=%d, numtrains=%d, trainrange=%d\n', ...
     params.dim, params.gen, params.numtrains, params.trainrange );
-d = dir(['exp_data/', 'exp_cmaeslog1_purecmaes_', int2str(params.fun), '_', int2str(params.dim), 'D_*']);
-load(['exp_data/', d.name]);
+d = dir([exppath_short, '/exp_data/', 'exp_cmaeslog1_purecmaes_', int2str(params.fun), '_', int2str(params.dim), 'D_*']);
+load([exppath_short, '/exp_data/', d.name]);
 
 info = '';
 ErrAcc = 0;

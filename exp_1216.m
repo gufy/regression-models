@@ -38,8 +38,7 @@ for I = 1:batchSize:len %len % how to iterate efficiently?
     
     %eval_exp_and_save(params);
     display(['Create task: ', int2str(I), '/', int2str(len)]);
-    createTask(job, @eval_batch, 0, {params});
-    
+    createTask(job, @eval_batch, 0, {params, exppath_short});
 end
 
 submit(job)
