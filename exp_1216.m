@@ -31,7 +31,7 @@ job = createJob(cl);
 %%
 
 len = length(p);
-batchSize = 1000;
+batchSize = 500;
 tic;
 for I = 1:batchSize:len %len % how to iterate efficiently?
     params = p(I:min(len,I+batchSize-1));
