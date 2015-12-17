@@ -1,5 +1,9 @@
 function [ res ] = eval_exp_and_save( params, exppath_short )
 
+if nargin < 2
+    exppath_short = '.';
+end
+
 res = eval_exp(params, exppath_short);
 
 % and save

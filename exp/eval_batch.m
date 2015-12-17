@@ -1,5 +1,9 @@
 function [ res ] = eval_batch( arr_of_params, exppath_short )
 
+if nargin < 2
+    exppath_short = '.';
+end
+
 setup_mail;
 %sendmail('vojtech.kopal@gmail.com', 'MATLAB Batch Started', 'Computation has started.');
 
